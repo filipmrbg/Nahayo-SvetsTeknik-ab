@@ -11,7 +11,7 @@ export function usePageTitle(title: string, description?: string) {
     // 2. Update Description
     const defaultDesc = "Nahayo SvetsTeknik ab i Gällivare – certifierad licenssvetsning, industrisvetsning och svetsteknik med högsta precision.";
     const activeDesc = description || defaultDesc;
-    
+
     let metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', activeDesc);

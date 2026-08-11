@@ -77,6 +77,7 @@ export default function Home() {
         paddingTop: '120px',
         paddingBottom: '80px',
         boxSizing: 'border-box',
+        backgroundColor: '#07080a',
       }}>
         {/* Hero Background Video */}
         <video

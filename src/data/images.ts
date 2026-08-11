@@ -79,8 +79,8 @@ const images: SiteImages = {
 
   hero: {
     background: {
-      url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=1920',
-      alt: 'Högkvalitativt industri- och hantverksarbete',
+      url: '/welder-cta-bg.png',
+      alt: 'Nahayo SvetsTeknik ab licenssvetsning och industriservice',
     },
   },
 
