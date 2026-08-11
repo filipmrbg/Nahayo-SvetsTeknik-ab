@@ -68,7 +68,7 @@ export default function Home() {
     <main style={{ fontFamily: 'var(--font-family)' }}>
 
       {/* ── SECTION 1: HERO ─────────────────────────────────────── */}
-      <section style={{
+      <section className="home-hero" style={{
         position: 'relative',
         minHeight: '100vh',
         display: 'flex',
@@ -163,7 +163,7 @@ export default function Home() {
 
             {/* Action Buttons Left-Aligned */}
             <ScrollReveal animation="fade-up" delay={300} duration={0.7}>
-              <div style={{
+              <div className="hero-actions" style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '16px',
@@ -274,15 +274,16 @@ export default function Home() {
           }}>
             {/* Left: 4-Image Mosaic Grid */}
             <ScrollReveal animation="fade-left" duration={0.8}>
-              <div style={{
+              <div className="about-mosaic" style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
                 gap: '10px',
                 width: '100%',
               }}>
                 {/* Column 1 (Left): Tall welder (top) + Wide plate (bottom) */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div className="about-mosaic-column" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   <img
+                    className="about-mosaic-image"
                     src="/grid-1.jpg"
                     alt="Svetsare i arbete"
                     style={{
@@ -293,6 +294,7 @@ export default function Home() {
                     }}
                   />
                   <img
+                    className="about-mosaic-image"
                     src="/grid-2.jpg"
                     alt="Svetsad stålkonstruktion"
                     style={{
@@ -305,8 +307,9 @@ export default function Home() {
                 </div>
 
                 {/* Column 2 (Right): Wide sparks (top) + Tall tractor & bucket (bottom) */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div className="about-mosaic-column" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   <img
+                    className="about-mosaic-image"
                     src="/grid-3.jpg"
                     alt="Gnistregn från vinkelslip och svets"
                     style={{
@@ -317,6 +320,7 @@ export default function Home() {
                     }}
                   />
                   <img
+                    className="about-mosaic-image"
                     src="/grid-4.jpg"
                     alt="Maskinreparation och grävskopa"
                     style={{

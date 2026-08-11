@@ -271,3 +271,71 @@ h1, h2, h3, h4, h5, h6 {
 .service-card-el:hover .service-card-arrow {
   transform: translateX(6px);
 }
+
+.home-hero {
+  overflow: hidden;
+}
+
+.about-mosaic-image {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  .home-hero {
+    min-height: 720px !important;
+  }
+
+  .hero-actions {
+    align-items: stretch !important;
+    flex-direction: column !important;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .hero-actions > a,
+  .hero-actions > button {
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  .about-grid-wrapper {
+    gap: 32px !important;
+  }
+
+  .about-mosaic {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .about-mosaic-column {
+    gap: 12px !important;
+  }
+
+  .about-mosaic-image {
+    height: auto !important;
+    aspect-ratio: 16 / 10;
+    object-position: center;
+  }
+
+  .about-mosaic-column:first-child .about-mosaic-image:first-child,
+  .about-mosaic-column:last-child .about-mosaic-image:last-child {
+    aspect-ratio: 16 / 11;
+  }
+
+  .service-card-img-wrap {
+    height: 200px;
+  }
+}
+
+@media (max-width: 420px) {
+  .home-hero {
+    min-height: 680px !important;
+  }
+
+  .about-mosaic-image {
+    aspect-ratio: 4 / 3;
+  }
+}
