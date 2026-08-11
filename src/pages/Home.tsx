@@ -85,7 +85,6 @@ export default function Home() {
           muted
           loop
           playsInline
-          poster={images.hero.background.url}
           style={{
             position: 'absolute',
             inset: 0,
