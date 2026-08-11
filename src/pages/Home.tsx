@@ -124,7 +124,7 @@ export default function Home() {
                 marginBottom: '16px',
                 display: 'block',
               }}>
-                GÄLLIVARE • REPARATION • SERVICE • MONTAGE
+                GÄLLIVARE  /  REPARATION  /  SERVICE  /  MONTAGE
               </span>
             </ScrollReveal>
 
