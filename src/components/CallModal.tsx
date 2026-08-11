@@ -1,4 +1,3 @@
-import React from 'react';
 import { Phone, X, UserCheck } from 'lucide-react';
 
 interface CallModalProps {
@@ -11,16 +10,10 @@ export default function CallModal({ isOpen, onClose }: CallModalProps) {
 
   const contacts = [
     {
-      name: 'Kundtjänst & Rådgivning',
-      role: 'Offert & Förfrågningar',
-      phone: '070-123 45 67',
-      tel: 'tel:0701234567',
-    },
-    {
-      name: 'Projekt & Entreprenad',
-      role: 'Teknisk Rådgivning',
-      phone: '070-987 65 43',
-      tel: 'tel:0709876543',
+      name: 'Nahayo SvetsTeknik ab',
+      role: 'Direktkontakt & Offert',
+      phone: '073-724 86 67',
+      tel: 'tel:0737248667',
     },
   ];
 

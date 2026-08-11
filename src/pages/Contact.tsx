@@ -21,8 +21,8 @@ const faqItems = [
     answer: 'Vi brukar återkomma med en offert inom 1–3 arbetsdagar efter platsbesöket, beroende på projektets omfattning.',
   },
   {
-    question: 'Tar ni på er jobb utanför Stockholm?',
-    answer: 'Stockholm är vår utgångspunkt, men vi kan ta uppdrag i närliggande områden vid större projekt. Hör av dig så berättar vi mer.',
+    question: 'Tar ni på er jobb utanför Gällivare?',
+    answer: 'Gällivare är vår utgångspunkt, men vi kan ta uppdrag i närliggande områden och hela regionen vid större projekt. Hör av dig så berättar vi mer.',
   },
   {
     question: 'Kan jag boka ett platsbesök direkt?',
@@ -57,8 +57,8 @@ function blurInput(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) 
 
 export default function Contact() {
   usePageTitle(
-    'Kontakta Oss | Offert & Rådgivning',
-    'Hör av dig för frågor, kostnadsfria platsbesök eller offert gällande ditt nästa entreprenad- och hantverksprojekt.'
+    'Kontakta Oss | Nahayo SvetsTeknik ab',
+    'Hör av dig till Nahayo SvetsTeknik ab i Gällivare för frågor, offert och rådgivning gällande svetsning och svetsteknik.'
   );
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -146,12 +146,12 @@ export default function Contact() {
                     </p>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                       <a
-                        href="tel:0701234567"
+                        href="tel:0737248667"
                         style={{ color: 'var(--color-gray-600)', fontSize: '0.95rem', textDecoration: 'none', lineHeight: 1.5, transition: 'color 0.2s ease' }}
                         onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-primary)')}
                         onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-gray-600)')}
                       >
-                        070-123 45 67
+                        073-724 86 67
                       </a>
                     </div>
                   </div>
@@ -175,7 +175,7 @@ export default function Contact() {
                       Plats &amp; Region
                     </p>
                     <p style={{ margin: 0, color: 'var(--color-gray-600)', fontSize: '0.95rem', lineHeight: 1.5 }}>
-                      Hela regionen med omnejd
+                      Gällivare med omnejd
                     </p>
                   </div>
                 </div>
@@ -198,12 +198,12 @@ export default function Contact() {
                       E-post
                     </p>
                     <a
-                      href="mailto:info@hantverkentreprenad.se"
+                      href="mailto:nahayosvetsteknik@outlook.com"
                       style={{ color: 'var(--color-gray-600)', fontSize: '0.95rem', textDecoration: 'none', lineHeight: 1.5, transition: 'color 0.2s ease' }}
                       onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-primary)')}
                       onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-gray-600)')}
                     >
-                      info@hantverkentreprenad.se
+                      nahayosvetsteknik@outlook.com
                     </a>
                   </div>
                 </div>

@@ -9,7 +9,7 @@ export function usePageTitle(title: string, description?: string) {
     document.title = title;
 
     // 2. Update Description
-    const defaultDesc = "Professionellt entreprenad- och hantverksföretag för specialiserade yrkestjänster, renovering, installation och montage.";
+    const defaultDesc = "Nahayo SvetsTeknik ab i Gällivare – certifierad licenssvetsning, industrisvetsning och svetsteknik med högsta precision.";
     const activeDesc = description || defaultDesc;
     
     let metaDescription = document.querySelector('meta[name="description"]');
@@ -51,6 +51,28 @@ export function usePageTitle(title: string, description?: string) {
     // 6. Update Open Graph URL
     const ogUrl = document.querySelector('meta[property="og:url"]');
     if (ogUrl) ogUrl.setAttribute('content', absoluteUrl);
+
+    // 7. Update OG & Twitter Image to default logo
+    const logoUrl = `${window.location.origin}/logo-transparent.png`;
+    let ogImage = document.querySelector('meta[property="og:image"]');
+    if (ogImage) {
+      ogImage.setAttribute('content', logoUrl);
+    } else {
+      ogImage = document.createElement('meta');
+      ogImage.setAttribute('property', 'og:image');
+      ogImage.setAttribute('content', logoUrl);
+      document.head.appendChild(ogImage);
+    }
+
+    let twitterImage = document.querySelector('meta[name="twitter:image"]');
+    if (twitterImage) {
+      twitterImage.setAttribute('content', logoUrl);
+    } else {
+      twitterImage = document.createElement('meta');
+      twitterImage.setAttribute('name', 'twitter:image');
+      twitterImage.setAttribute('content', logoUrl);
+      document.head.appendChild(twitterImage);
+    }
 
   }, [title, description, pathname]);
 }

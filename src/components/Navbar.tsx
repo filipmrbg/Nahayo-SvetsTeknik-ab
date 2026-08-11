@@ -5,7 +5,7 @@ import images from '../data/images';
 
 const navLinks = [
   { label: 'Hem', href: '/' },
-  { label: 'Tjänster', href: '/tjanster' },
+  { label: 'Tjänster', href: '/#tjanster' },
   { label: 'Om oss', href: '/om-oss' },
   { label: 'Kontakt', href: '/kontakt' },
 ];
@@ -201,7 +201,7 @@ export default function Navbar() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexShrink: 0 }}>
           <div className="phone-link-wrapper" style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '12px' }}>
             <a
-              href="tel:0701234567"
+              href="tel:0737248667"
               className="phone-link"
               style={{
                 display: 'flex',
@@ -219,7 +219,7 @@ export default function Navbar() {
               onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-white)')}
             >
               <Phone size={14} color="var(--color-primary)" />
-              <span>070-123 45 67</span>
+              <span>073-724 86 67</span>
             </a>
           </div>
 
@@ -259,7 +259,7 @@ export default function Navbar() {
           {/* Phone icon — shown on mobile only */}
           <div className="mobile-phone-btn" style={{ position: 'relative', display: 'none' }}>
             <a
-              href="tel:0760970807"
+              href="tel:0737248667"
               aria-label="Ring oss"
               style={{
                 display: 'flex',
@@ -410,8 +410,8 @@ export default function Navbar() {
             Ring oss direkt:
           </span>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center' }}>
-            <a href="tel:0701234567" style={{ color: 'var(--color-white)', fontWeight: 600, fontSize: '0.95rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-              <Phone size={14} color="var(--color-primary)" /> 070-123 45 67
+            <a href="tel:0737248667" style={{ color: 'var(--color-white)', fontWeight: 600, fontSize: '0.95rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              <Phone size={14} color="var(--color-primary)" /> 073-724 86 67
             </a>
           </div>
         </div>

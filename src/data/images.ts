@@ -20,6 +20,7 @@
 
 export interface ImageSlot {
   url: string;
+  transparentUrl?: string;
   alt: string;
 }
 
@@ -34,6 +35,7 @@ export interface SiteImages {
     specialistarbeteEntreprenad: ImageSlot;
   };
   gallery: ImageSlot[];
+  grid?: string[];
   cta: {
     banner: ImageSlot;
     midSection: ImageSlot;
@@ -70,8 +72,9 @@ export interface SiteImages {
 
 const images: SiteImages = {
   logo: {
-    url: '/logo-transparent.png',
-    alt: 'Master Trade & Contracting',
+    url: '/logo-nahayo.jpg',
+    transparentUrl: '/logo-transparent.png',
+    alt: 'Nahayo SvetsTeknik ab logotyp',
   },
 
   hero: {
@@ -103,24 +106,26 @@ const images: SiteImages = {
     { url: '/portfolio-roofing.webp', alt: 'Tak & Konstruktion' },
   ],
 
+  grid: ['/grid-1.jpg', '/grid-2.jpg', '/grid-3.jpg', '/grid-4.jpg'],
+
   cta: {
     banner: {
-      url: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=1400',
-      alt: 'Kvalitativt yrkesarbete',
+      url: '/welder-cta-bg.png',
+      alt: 'Certifierad svetsare i arbete med svetsteknik',
     },
     midSection: {
-      url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=1400',
-      alt: 'Industri- och entreprenadprojekt',
+      url: '/mid-cta-bg.png',
+      alt: 'Svetsare och industriservice i arbete',
     },
   },
 
   about: {
     hero: {
-      url: '/logo-transparent.png',
-      alt: 'Hantverk & Entreprenad logotyp',
+      url: '/logo-nahayo.jpg',
+      alt: 'Nahayo SvetsTeknik ab logotyp',
     },
     teamMember: {
-      url: '/logo-transparent.png',
+      url: '/logo-nahayo.jpg',
       alt: 'Teammedlem',
     },
   },
@@ -137,24 +142,19 @@ const images: SiteImages = {
 
   portfolio: [
     {
-      image: { url: '/portfolio-facade.webp', alt: 'Fasad och stålkonstruktion' },
-      title: 'Fasad & Entreprenad',
-      category: 'Specialistarbete',
+      image: { url: '/project-1.jpg', alt: 'Licenssvetsning & stålkonstruktioner' },
+      title: 'Licenssvetsning & Stålmontage',
+      category: 'Industri & Montage',
     },
     {
-      image: { url: '/portfolio-extension.webp', alt: 'Tillbyggnad & Industriutrymme' },
-      title: 'Tillbyggnad & Montage',
-      category: 'Ombyggnad',
+      image: { url: '/project-2.jpg', alt: 'Reparation & Maskinunderhåll' },
+      title: 'Reparation & Maskinunderhåll',
+      category: 'Industriservice',
     },
     {
-      image: { url: '/portfolio-roofing.webp', alt: 'Tak & Tätskikt' },
-      title: 'Tak & Konstruktion',
-      category: 'Installation & Service',
-    },
-    {
-      image: { url: '/gallery-deck.webp', alt: 'Finmekanik & Snickeri' },
-      title: 'Precisionssnickeri',
-      category: 'Renovering',
+      image: { url: '/project-3.jpg', alt: 'Verkstadsinstallationer & Entreprenad' },
+      title: 'Verkstadsinstallationer',
+      category: 'Specialistuppdrag',
     },
   ],
 

@@ -51,8 +51,8 @@ html {
 body {
   margin: 0;
   font-family: var(--font-family);
-  background-color: var(--color-dark);
-  color: var(--color-text-light);
+  background-color: #ffffff;
+  color: var(--color-text-dark);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-variant-ligatures: none;

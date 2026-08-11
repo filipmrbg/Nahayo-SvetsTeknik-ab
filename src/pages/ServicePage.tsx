@@ -207,7 +207,7 @@ export default function ServicePage() {
   }, [slug, normalizedSlug]);
 
   usePageTitle(
-    `${service.title} | Hantverk & Entreprenad`,
+    `${service.title} | Nahayo SvetsTeknik ab`,
     service.heroText
   );
 
@@ -237,7 +237,7 @@ export default function ServicePage() {
           <div style={{ maxWidth: '840px', margin: '0 auto', textAlign: 'center' }}>
 
             {/* Back link */}
-            <ScrollReveal animation="fade-down" delay={0}>
+            <ScrollReveal animation="fade-up" delay={0}>
               <Link to="/tjanster" style={{
                 display: 'inline-flex',
                 alignItems: 'center',

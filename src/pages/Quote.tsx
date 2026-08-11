@@ -57,8 +57,8 @@ function blurInput(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | 
 
 export default function Quote() {
   usePageTitle(
-    'Begär Offert | Professionella Hantverks- & Industritjänster',
-    'Fyll i formuläret för att få en kostnadsfri offert och prisförslag för ditt projekt.'
+    'Begär Offert | Nahayo SvetsTeknik ab',
+    'Fyll i formuläret för en kostnadsfri offert från Nahayo SvetsTeknik ab i Gällivare.'
   );
   const [name, setName]       = useState('');
   const [email, setEmail]     = useState('');

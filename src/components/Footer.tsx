@@ -3,13 +3,14 @@ import { Instagram, Mail, Phone, MapPin } from 'lucide-react';
 import images from '../data/images';
 
 const serviceLinks = [
-  { label: 'Renovering & Ombyggnad', href: '/tjanster/renovering-ombyggnad' },
-  { label: 'Installation & Service', href: '/tjanster/installation-service' },
-  { label: 'Specialistarbete & Entreprenad', href: '/tjanster/specialistarbete-entreprenad' },
+  { label: 'Fältservice', href: '/#tjanster' },
+  { label: 'Maskinreparation', href: '/#tjanster' },
+  { label: 'Svetsning', href: '/#tjanster' },
+  { label: 'Tillverkning', href: '/#tjanster' },
 ];
 
 const socialIcons = [
-  { Icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/' },
+  { Icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/nahayo_svetsteknik' },
 ];
 
 export default function Footer() {
@@ -51,7 +52,7 @@ export default function Footer() {
               </Link>
             </div>
             <p style={{ color: 'var(--color-gray-600)', fontSize: '0.9rem', lineHeight: 1.7, margin: '0 0 20px 0' }}>
-              Professionellt entreprenad- och hantverksföretag. Vi utför alla typer av installationer, ombyggnader och specialiserade yrkesarbeten med högsta kvalitet och precision.
+              Certifierad licenssvetsning och industrisvetsning i Gällivare. Vi utför alla typer av svetstekniska arbeten och montage med högsta kvalitet och precision.
             </p>
             <div style={{ display: 'flex', gap: '12px' }}>
               {socialIcons.map(({ Icon, label, href }) => (
@@ -124,23 +125,23 @@ export default function Footer() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.95rem' }}>
 
               <a
-                href="mailto:info@hantverkentreprenad.se"
+                href="mailto:nahayosvetsteknik@outlook.com"
                 className="footer-contact-item"
               >
                 <div className="footer-contact-icon">
                   <Mail size={16} strokeWidth={2} />
                 </div>
-                <span>info@hantverkentreprenad.se</span>
+                <span>nahayosvetsteknik@outlook.com</span>
               </a>
 
               <a
-                href="tel:0701234567"
+                href="tel:0737248667"
                 className="footer-contact-item"
               >
                 <div className="footer-contact-icon">
                   <Phone size={16} strokeWidth={2} />
                 </div>
-                <span>070-123 45 67</span>
+                <span>073-724 86 67</span>
               </a>
 
               <div
@@ -149,7 +150,7 @@ export default function Footer() {
                 <div className="footer-contact-icon">
                   <MapPin size={16} strokeWidth={2} />
                 </div>
-                <span>Huvudkontor &amp; Verkstad</span>
+                <span>Gällivare med omnejd</span>
               </div>
             </div>
           </div>
@@ -171,7 +172,7 @@ export default function Footer() {
           }}
         >
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center', color: 'var(--color-gray-600)', fontSize: '0.875rem', flexWrap: 'wrap' }}>
-            <span>© 2026 - Hantverk &amp; Entreprenad AB</span>
+            <span>© 2026 - Nahayo SvetsTeknik ab</span>
           </div>
         </div>
       </div>

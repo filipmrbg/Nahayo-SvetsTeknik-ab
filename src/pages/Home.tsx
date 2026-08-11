@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
   Star,
   Phone,
-  MapPin,
-  Wrench,
   CheckCircle2,
+  Wrench,
+  FileText,
 } from 'lucide-react';
+import { FieldServiceIcon, MachineRepairIcon, WeldingIcon } from '../components/ServiceIcons';
 import ScrollReveal from '../components/ScrollReveal';
 import Button from '../components/Button';
 import CTABanner from '../components/CTABanner';
@@ -15,7 +15,7 @@ import SocialBanner from '../components/SocialBanner';
 import CallModal from '../components/CallModal';
 import { usePageTitle } from '../hooks/usePageTitle';
 import images from '../data/images';
-import services, { ServiceItem } from '../data/services';
+import services from '../data/services';
 
 const container: React.CSSProperties = {
   maxWidth: 'var(--container-max)',
@@ -25,12 +25,27 @@ const container: React.CSSProperties = {
 
 export default function Home() {
   usePageTitle(
-    'Kvalitet & Precision | Professionella Hantverks- & Industritjänster',
-    'Vi utför alla typer av renovering, installation, ombyggnad och specialiserade yrkesarbeten med högsta kvalitet och precision. Kontakta oss för en kostnadsfri offert!'
+    'Nahayo SvetsTeknik ab | Licenssvetsning, Fältservice och Maskinreparation',
+    'Professionella tjänster inom svetsning, mobil fältservice, maskinreparation och industrimontage i Gällivare med omnejd.'
   );
 
   const heroBgRef = useRef<HTMLDivElement>(null);
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
+  const [displayedTab, setDisplayedTab] = useState(0);
+  const [tabPhase, setTabPhase] = useState<'visible' | 'exiting' | 'entering'>('visible');
+
+  const handleTabSwitch = (idx: number) => {
+    if (idx === activeTab || tabPhase !== 'visible') return;
+    setActiveTab(idx);
+    setTabPhase('exiting');
+    // Ultra-fast exit, followed by snappy enter
+    setTimeout(() => {
+      setDisplayedTab(idx);
+      setTabPhase('entering');
+      setTimeout(() => setTabPhase('visible'), 400);
+    }, 120);
+  };
 
   useEffect(() => {
     let ticking = false;
@@ -63,67 +78,95 @@ export default function Home() {
         paddingBottom: '80px',
         boxSizing: 'border-box',
       }}>
-        {/* Parallax Background Image */}
-        <div
-          ref={heroBgRef}
+        {/* Hero Background Video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={images.hero.background.url}
           style={{
             position: 'absolute',
-            inset: '-10% 0',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
             zIndex: 0,
-            willChange: 'transform',
-            backgroundImage: `url(${images.hero.background.url})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
           }}
-        />
+        >
+          <source src="/hero-bg-video.mp4" type="video/mp4" />
+        </video>
+
         {/* Dark overlay */}
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.85) 100%)',
+          background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.65) 0%, rgba(15, 23, 42, 0.82) 100%)',
           zIndex: 1,
         }} />
 
-        <div style={{ ...container, position: 'relative', zIndex: 2, width: '100%', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ ...container, position: 'relative', zIndex: 2, width: '100%' }}>
           <div style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
-            gap: '24px',
-            maxWidth: '800px',
-            margin: '0 auto',
+            alignItems: 'flex-start',
+            textAlign: 'left',
+            maxWidth: '780px',
           }}>
-            {/* Centered Logo Emblem */}
-            <ScrollReveal animation="fade-down" delay={0} duration={0.8}>
-              <div style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '12px',
+            {/* Top Eyebrow Badge */}
+            <ScrollReveal animation="fade-up" delay={0} duration={0.8}>
+              <span style={{
+                fontSize: '0.85rem',
+                fontWeight: 800,
+                letterSpacing: '0.22em',
+                textTransform: 'uppercase',
+                color: 'var(--color-primary)',
+                marginBottom: '16px',
+                display: 'block',
               }}>
-                <img
-                  src={images.logo.url}
-                  alt={images.logo.alt}
-                  style={{
-                    width: 'clamp(260px, 45vw, 420px)',
-                    height: 'auto',
-                    objectFit: 'contain',
-                    filter: 'drop-shadow(0 3px 10px rgba(0, 0, 0, 0.85))',
-                  }}
-                />
-              </div>
+                GÄLLIVARE • REPARATION • SERVICE • MONTAGE
+              </span>
             </ScrollReveal>
 
-            {/* Action Buttons Centered directly under logo */}
-            <ScrollReveal animation="fade-up" delay={200} duration={0.7}>
+            {/* Display Title */}
+            <ScrollReveal animation="fade-up" delay={100} duration={0.8}>
+              <h1 style={{
+                fontSize: 'clamp(2.4rem, 5.2vw, 4.2rem)',
+                fontWeight: 800,
+                lineHeight: 1.1,
+                letterSpacing: '-0.01em',
+                color: '#ffffff',
+                textTransform: 'uppercase',
+                margin: '0 0 20px 0',
+                fontFamily: "'Montserrat', var(--font-family), sans-serif",
+                textShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
+              }}>
+                NAHAYO<br />
+                SVETSTEKNIK AB
+              </h1>
+            </ScrollReveal>
+
+            {/* Subtitle / Value Proposition Text */}
+            <ScrollReveal animation="fade-up" delay={200} duration={0.8}>
+              <p style={{
+                fontSize: 'clamp(1.05rem, 1.8vw, 1.25rem)',
+                color: 'rgba(255, 255, 255, 0.9)',
+                lineHeight: 1.6,
+                margin: '0 0 36px 0',
+                maxWidth: '620px',
+                fontWeight: 500,
+              }}>
+                Experter på Svets, Industrimontage &amp; Service i Gällivare med omnejd. Hantverk som syns i varje detalj.
+              </p>
+            </ScrollReveal>
+
+            {/* Action Buttons Left-Aligned */}
+            <ScrollReveal animation="fade-up" delay={300} duration={0.7}>
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
                 gap: '16px',
                 flexWrap: 'wrap',
-                marginTop: '8px',
               }}>
                 <Button variant="primary" size="lg" href="/offert">
                   Begär kostnadsfri offert
@@ -132,24 +175,10 @@ export default function Home() {
                 <Button variant="outline" size="lg" onClick={() => setIsCallModalOpen(true)}>
                   <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                     <Phone size={18} />
-                    Ring
+                    Ring 073-724 86 67
                   </span>
                 </Button>
               </div>
-            </ScrollReveal>
-
-            {/* Tagline / Sub-heading directly under buttons */}
-            <ScrollReveal animation="fade-up" delay={350} duration={0.7}>
-              <p style={{
-                color: 'rgba(255, 255, 255, 0.95)',
-                fontSize: 'clamp(1rem, 2.2vw, 1.25rem)',
-                letterSpacing: '0.04em',
-                fontWeight: 700,
-                margin: '12px 0 0 0',
-                textShadow: '0 2px 8px rgba(0, 0, 0, 0.95), 0 0 16px rgba(0, 0, 0, 0.6)',
-              }}>
-                Quality, Precision &amp; Professional Trade Services
-              </p>
             </ScrollReveal>
           </div>
         </div>
@@ -175,9 +204,9 @@ export default function Home() {
             textAlign: 'center',
           }}>
             {[
-              { icon: Phone, title: 'Ring oss', desc: 'Berätta om ditt projekt, så hjälper vi dig avgöra vad som krävs och vad det kostar.' },
-              { icon: MapPin, title: 'Kostnadsfritt platsbesök', desc: 'Vi besöker er tomt för att mäta höjdskillnader, bedöma marken och ta fram en offert.' },
-              { icon: Wrench, title: 'Vi utför', desc: 'Vi utför arbetet på ett tryggt och professionellt sätt med fokus på kvalitet.' },
+              { icon: Phone, title: 'Kontakta oss', desc: 'Beskriv ditt behov, oavsett om det gäller fältservice, maskinreparation eller svetsarbeten.' },
+              { icon: FileText, title: 'Planering och offert', desc: 'Vi går igenom specifikationerna och lämnar en tydlig offert anpassad för ditt uppdrag.' },
+              { icon: Wrench, title: 'Utförande och leverans', desc: 'Våra svetsare och mekaniker utför arbetet med högsta noggrannhet i fält eller i verkstaden.' },
             ].map(({ icon: Icon, title, desc }, i) => (
               <div key={i} style={{ display: 'contents' }}>
                 <ScrollReveal animation="scale-in" easing="spring" delay={i * 150}>
@@ -228,163 +257,479 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── SECTION 3: OM OSS-BLURB ────────────────────────────── */}
-      <section style={{ background: '#f8fafc', padding: 'clamp(60px, 8vw, 100px) 0' }}>
+      {/* ── SECTION 4: OM OSS (KLAS MEK 4-IMAGE MOSAIC GRID STYLE) ──── */}
+      <section style={{
+        background: '#07080a',
+        padding: 'clamp(60px, 8vw, 100px) 0',
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
         <div style={container}>
-          <div className="two-col" style={{
+          <div className="about-grid-wrapper" style={{
             display: 'grid',
-            gridTemplateColumns: 'clamp(280px, 35%, 400px) 1fr',
-            gap: '60px',
+            gridTemplateColumns: '1fr 1fr',
+            gap: 'clamp(30px, 5vw, 60px)',
             alignItems: 'center',
           }}>
-            {/* Left: Logo */}
+            {/* Left: 4-Image Mosaic Grid */}
             <ScrollReveal animation="fade-left" duration={0.8}>
               <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '10px',
+                width: '100%',
               }}>
-                <img
-                  src={images.logo.url}
-                  alt="Hantverk &amp; Entreprenad logotyp"
-                  loading="lazy"
-                  decoding="async"
-                  style={{
-                    width: '100%',
-                    maxWidth: '380px',
-                    height: 'auto',
-                    objectFit: 'contain',
-                    borderRadius: '16px',
-                    backgroundColor: '#ffffff',
-                    padding: '24px',
-                    boxShadow: '0 12px 32px rgba(0, 0, 0, 0.1)',
-                  }}
-                />
+                {/* Column 1 (Left): Tall welder (top) + Wide plate (bottom) */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <img
+                    src="/grid-1.jpg"
+                    alt="Svetsare i arbete"
+                    style={{
+                      width: '100%',
+                      height: '320px',
+                      objectFit: 'cover',
+                      borderRadius: '4px',
+                    }}
+                  />
+                  <img
+                    src="/grid-2.jpg"
+                    alt="Svetsad stålkonstruktion"
+                    style={{
+                      width: '100%',
+                      height: '180px',
+                      objectFit: 'cover',
+                      borderRadius: '4px',
+                    }}
+                  />
+                </div>
+
+                {/* Column 2 (Right): Wide sparks (top) + Tall tractor & bucket (bottom) */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <img
+                    src="/grid-3.jpg"
+                    alt="Gnistregn från vinkelslip och svets"
+                    style={{
+                      width: '100%',
+                      height: '180px',
+                      objectFit: 'cover',
+                      borderRadius: '4px',
+                    }}
+                  />
+                  <img
+                    src="/grid-4.jpg"
+                    alt="Maskinreparation och grävskopa"
+                    style={{
+                      width: '100%',
+                      height: '320px',
+                      objectFit: 'cover',
+                      borderRadius: '4px',
+                    }}
+                  />
+                </div>
               </div>
             </ScrollReveal>
 
-            {/* Right: text */}
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {/* Right: Text & Action Content */}
+            <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 2 }}>
               <ScrollReveal animation="fade-right" duration={0.8}>
                 <h2 style={{
-                  color: 'var(--color-text-dark)',
+                  color: '#ffffff',
                   fontWeight: 800,
-                  fontSize: 'clamp(1.8rem, 3vw, 2.5rem)',
-                  lineHeight: 1.2,
-                  margin: '0 0 14px 0',
+                  fontSize: 'clamp(1.8rem, 3.2vw, 2.6rem)',
+                  lineHeight: 1.25,
+                  margin: '0 0 12px 0',
                 }}>
-                  Precision &amp; Kvalitet i varje detalj
+                  Kvalitetsarbete i varje svetsfog
                 </h2>
               </ScrollReveal>
-              <ScrollReveal animation="scale-x-left" delay={200} duration={0.6}>
-                <span style={{ display: 'block', width: '60px', height: '3px', background: 'var(--color-primary)', borderRadius: '2px', margin: '0 0 24px' }} />
+
+              <ScrollReveal animation="fade-right" duration={0.8} delay={50}>
+                <span style={{
+                  color: 'var(--color-primary)',
+                  fontSize: '0.85rem',
+                  fontWeight: 800,
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  marginBottom: '20px',
+                  display: 'block',
+                }}>
+                  REPARATIONSSTJÄNSTER OCH SVETSTEKNIK
+                </span>
               </ScrollReveal>
+
               <ScrollReveal animation="fade-right" duration={0.8} delay={100}>
                 <p style={{
-                  color: 'var(--color-gray-600)',
-                  fontSize: '1rem',
+                  color: 'rgba(255, 255, 255, 0.78)',
+                  fontSize: '0.95rem',
                   lineHeight: 1.75,
-                  margin: '0 0 32px 0',
+                  margin: '0 0 16px 0',
                 }}>
-                  Vi erbjuder professionella yrkes- och entreprenadtjänster med högsta fokus på noggrannhet, punktlighet och hållbarhet. Oavsett om det gäller tekniska installationer, ombyggnationer eller specialiserade entreprenaduppdrag ser vi till att dina projekt genomförs med kompromisslös precision.
+                  Hos Nahayo SvetsTeknik ab får du professionell hjälp med svetsning, maskinreparationer och industrimontage. Vi arbetar med allt från akuta utryckningar i fält till skräddarsydda tillverkningar i verkstaden.
+                </p>
+                <p style={{
+                  color: 'rgba(255, 255, 255, 0.78)',
+                  fontSize: '0.95rem',
+                  lineHeight: 1.75,
+                  margin: '0 0 20px 0',
+                }}>
+                  Vi sätter alltid noggrannhet och hållbarhet i första rummet. Med rätt kompetens och utrustning ser vi till att dina maskiner och stålkonstruktioner fungerar felfritt.
+                </p>
+                <p style={{
+                  color: 'rgba(255, 255, 255, 0.9)',
+                  fontSize: '0.95rem',
+                  fontWeight: 600,
+                  margin: '0 0 28px 0',
+                }}>
+                  Hör av dig till oss så hittar vi den bästa lösningen för dina behov.
                 </p>
               </ScrollReveal>
+
+              {/* Action Pill Buttons */}
               <ScrollReveal animation="fade-right" duration={0.8} delay={200}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  {[
-                    'Certifierade yrkesarbetare och specialistkunskap',
-                    'Fasta prisuppgifter och transparens från start',
-                    'Högsta kvalitet på material och utförande',
-                    'Modern utrustning anpassad för alla projekt',
-                  ].map((item, i) => (
-                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <CheckCircle2 size={24} color="var(--color-primary)" style={{ flexShrink: 0 }} />
-                      <span style={{ color: 'var(--color-text-dark)', fontWeight: 600, fontSize: '0.95rem' }}>
-                        {item}
-                      </span>
-                    </div>
-                  ))}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+                  <button
+                    onClick={() => setIsCallModalOpen(true)}
+                    style={{
+                      padding: '10px 24px',
+                      borderRadius: '999px',
+                      border: '1.5px solid var(--color-primary)',
+                      background: 'transparent',
+                      color: 'var(--color-primary)',
+                      fontWeight: 800,
+                      fontSize: '0.85rem',
+                      letterSpacing: '0.08em',
+                      textTransform: 'uppercase',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'var(--color-primary)';
+                      e.currentTarget.style.color = '#ffffff';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.color = 'var(--color-primary)';
+                    }}
+                  >
+                    RING OSS
+                  </button>
+
+                  <a
+                    href="/kontakt"
+                    style={{
+                      padding: '10px 24px',
+                      borderRadius: '999px',
+                      border: '1.5px solid var(--color-primary)',
+                      background: 'transparent',
+                      color: 'var(--color-primary)',
+                      fontWeight: 800,
+                      fontSize: '0.85rem',
+                      letterSpacing: '0.08em',
+                      textTransform: 'uppercase',
+                      textDecoration: 'none',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'var(--color-primary)';
+                      e.currentTarget.style.color = '#ffffff';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.color = 'var(--color-primary)';
+                    }}
+                  >
+                    MAILA OSS
+                  </a>
                 </div>
               </ScrollReveal>
-              <ScrollReveal animation="fade-right" duration={0.8} delay={250}>
-                <div style={{ marginTop: '32px' }}>
-                  <Button variant="dark" href="/om-oss">
-                    Läs mer om oss
-                  </Button>
-                </div>
-              </ScrollReveal>
+
+              {/* Watermark Logo (Bottom Right) */}
+              <div style={{
+                position: 'absolute',
+                right: '-20px',
+                bottom: '-40px',
+                opacity: 0.05,
+                pointerEvents: 'none',
+                zIndex: -1,
+              }}>
+                <WeldingIcon size={240} color="var(--color-primary)" />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── SECTION 5: CLEAN SPACED TILE GRID ────────────────────── */}
+      {/* ── SECTION 5: VERTICAL TAB SERVICES (KLAS MEK STYLE) ──── */}
       <section
         id="tjanster"
         style={{
-          background: '#f4f3ef',
+          background: 'var(--color-dark)',
           padding: 'clamp(80px, 10vw, 120px) 0',
+          color: '#ffffff',
         }}
       >
         <div style={container}>
-          <div style={{ textAlign: 'center', marginBottom: '52px' }}>
+          {/* Section Header */}
+          <div style={{ marginBottom: '48px' }}>
             <ScrollReveal animation="blur-in">
               <h2 style={{
-                color: 'var(--color-text-dark)',
+                color: '#ffffff',
                 fontWeight: 800,
-                fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)',
+                fontSize: 'clamp(2rem, 4vw, 3rem)',
                 letterSpacing: '-0.02em',
-                margin: '0 0 14px 0',
+                margin: '0 0 16px 0',
+                textTransform: 'uppercase',
               }}>
-                Vad vi kan hjälpa dig med
+                Våra Tjänster
               </h2>
             </ScrollReveal>
-            <ScrollReveal animation="scale-x-center" delay={150} duration={0.6}>
-              <span style={{ display: 'block', width: '50px', height: '3px', background: 'var(--color-primary)', borderRadius: '2px', margin: '0 auto 16px auto' }} />
-            </ScrollReveal>
-            <ScrollReveal animation="fade-up" delay={200}>
+            <ScrollReveal animation="fade-up" delay={100}>
               <p style={{
-                color: 'var(--color-gray-600)',
+                color: 'rgba(255, 255, 255, 0.7)',
                 fontSize: '1.05rem',
-                maxWidth: '620px',
-                margin: '0 auto',
+                maxWidth: '640px',
                 lineHeight: 1.7,
+                margin: 0,
               }}>
-                Kommunicera dina behov – vi levererar skräddarsydda lösningar inom renovering, installation och specialistentreprenad.
+                På Nahayo SvetsTeknik ab erbjuder vi professionella tjänster inom fältservice, maskinreparation, svetsning, tillverkning och montage. Vi säkerställer hållbara och effektiva lösningar för företag och industrier.
               </p>
             </ScrollReveal>
           </div>
 
-          {/* Spaced Tile Grid (Sentence case titles, warm off-white background) */}
-          <div className="spaced-screenshot-grid">
-            {services.map((svc: ServiceItem, index: number) => (
-              <ScrollReveal key={svc.slug} animation="fade-up" delay={(index % 3) * 80}>
-                <Link to={svc.href} className="spaced-tile">
-                  {/* Image */}
-                  <img
-                    src={svc.image}
-                    alt={svc.title}
-                    loading="lazy"
-                    className="spaced-tile-img"
-                  />
-                  {/* Overlay */}
-                  <div className="spaced-tile-overlay" />
+          {/* Vertical Tabs + Content Panel */}
+          <ScrollReveal animation="fade-up" delay={150}>
+            <div className="svc-tabs-layout">
+              {/* Left: Vertical Tab Buttons */}
+              <div className="svc-tabs-sidebar">
+                {services.map((svc, idx) => (
+                  <button
+                    key={svc.slug}
+                    onClick={() => handleTabSwitch(idx)}
+                    className={`svc-tab-btn ${activeTab === idx ? 'svc-tab-active' : ''}`}
+                  >
+                    {svc.title}
+                  </button>
+                ))}
+              </div>
 
-                  {/* Content Container */}
-                  <div className="spaced-tile-content">
-                    <div className="spaced-tile-left">
-                      <h3 className="spaced-tile-title">
+              {/* Right: Active Service Content */}
+              <div className="svc-tab-panel">
+                {(() => {
+                  const iconComponents = [FieldServiceIcon, MachineRepairIcon, WeldingIcon];
+                  const IconComp = iconComponents[displayedTab % iconComponents.length];
+                  const svc = services[displayedTab];
+                  const phase = tabPhase === 'exiting' ? 'svc-phase-exit' : tabPhase === 'entering' ? 'svc-phase-enter' : 'svc-phase-visible';
+
+                  return (
+                    <div className={`svc-tab-content-wrap ${phase}`}>
+                      <h3 className="svc-stagger svc-stagger-1" style={{
+                        fontSize: 'clamp(1.4rem, 2.5vw, 1.8rem)',
+                        fontWeight: 800,
+                        color: '#ffffff',
+                        margin: '0 0 24px 0',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.02em',
+                      }}>
                         {svc.title}
                       </h3>
+
+                      <div className="svc-tab-inner">
+                        <div style={{ flex: 1 }}>
+                          <p className="svc-stagger svc-stagger-2" style={{
+                            color: 'rgba(255, 255, 255, 0.8)',
+                            fontSize: '1rem',
+                            lineHeight: 1.75,
+                            margin: '0 0 24px 0',
+                          }}>
+                            {svc.heroText}
+                          </p>
+
+                          <ul style={{
+                            listStyle: 'none',
+                            padding: 0,
+                            margin: '0 0 32px 0',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '10px',
+                          }}>
+                            {svc.highlights.map((h, i) => (
+                              <li key={i} className={`svc-stagger svc-stagger-${i + 3}`} style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                color: 'rgba(255, 255, 255, 0.75)',
+                                fontSize: '0.92rem',
+                              }}>
+                                <CheckCircle2 size={16} color="var(--color-primary)" style={{ flexShrink: 0 }} />
+                                {h}
+                              </li>
+                            ))}
+                          </ul>
+
+                          <div className="svc-stagger svc-stagger-6">
+                            <Button variant="primary" size="lg" href="/offert">
+                              Få offert
+                            </Button>
+                          </div>
+                        </div>
+
+                        <div className="svc-tab-icon-area svc-stagger svc-stagger-2">
+                          <div className="svc-tab-icon-ring">
+                            <IconComp size={160} color="var(--color-primary)" />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="spaced-tile-right">
-                      <span className="spaced-tile-action">Begär offert</span>
-                    </div>
-                  </div>
-                </Link>
-              </ScrollReveal>
-            ))}
-          </div>
+                  );
+                })()}
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <style>{`
+            .svc-tabs-layout {
+              display: grid;
+              grid-template-columns: 240px 1fr;
+              gap: 0;
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              border-radius: 16px;
+              overflow: hidden;
+              background: rgba(255, 255, 255, 0.03);
+            }
+            .svc-tabs-sidebar {
+              display: flex;
+              flex-direction: column;
+              border-right: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .svc-tab-btn {
+              padding: 22px 28px;
+              background: none;
+              border: none;
+              border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+              color: rgba(255, 255, 255, 0.55);
+              font-size: 0.95rem;
+              font-weight: 700;
+              text-align: left;
+              cursor: pointer;
+              transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+              font-family: var(--font-family);
+              position: relative;
+            }
+            .svc-tab-btn:last-child { border-bottom: none; }
+            .svc-tab-btn:hover {
+              background: rgba(255, 255, 255, 0.04);
+              color: rgba(255, 255, 255, 0.95);
+            }
+            .svc-tab-btn.svc-tab-active {
+              background: var(--color-primary);
+              color: #ffffff;
+              border-color: var(--color-primary);
+              border-left: 3px solid rgba(255,255,255,0.6);
+            }
+            .svc-tab-panel {
+              padding: clamp(32px, 4vw, 48px);
+              overflow: hidden;
+              position: relative;
+              min-height: 340px;
+            }
+
+            /* ── Phase transitions ── */
+            .svc-tab-content-wrap {
+              will-change: opacity, transform;
+            }
+
+            /* EXIT: extremely fast fade-out + slight left shift */
+            .svc-phase-exit .svc-stagger {
+              opacity: 0;
+              transform: translateX(-12px);
+              transition: opacity 0.12s ease-out, transform 0.12s ease-out;
+            }
+
+            /* ENTER: rapid staggered slide-in from right */
+            .svc-phase-enter .svc-stagger {
+              opacity: 0;
+              transform: translateX(20px);
+            }
+            .svc-phase-enter .svc-stagger-1 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.02s both; }
+            .svc-phase-enter .svc-stagger-2 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.06s both; }
+            .svc-phase-enter .svc-stagger-3 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.10s both; }
+            .svc-phase-enter .svc-stagger-4 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.14s both; }
+            .svc-phase-enter .svc-stagger-5 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.18s both; }
+            .svc-phase-enter .svc-stagger-6 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.22s both; }
+
+            /* VISIBLE: everything shown */
+            .svc-phase-visible .svc-stagger {
+              opacity: 1;
+              transform: translateX(0);
+            }
+
+            @keyframes svcReveal {
+              from {
+                opacity: 0;
+                transform: translateX(20px);
+              }
+              to {
+                opacity: 1;
+                transform: translateX(0);
+              }
+            }
+
+            .svc-tab-inner {
+              display: flex;
+              gap: 40px;
+              align-items: center;
+            }
+
+            /* Ultra-premium static icon area */
+            .svc-tab-icon-area {
+              flex-shrink: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 180px;
+              min-height: 180px;
+              position: relative;
+            }
+            .svc-tab-icon-ring {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              opacity: 0.9;
+            }
+
+            @media (max-width: 900px) {
+              .svc-tabs-layout { grid-template-columns: 1fr; }
+              .svc-tabs-sidebar {
+                flex-direction: row;
+                overflow-x: auto;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+              }
+              .svc-tab-btn {
+                white-space: nowrap;
+                border-bottom: none;
+                border-right: 1px solid rgba(255, 255, 255, 0.06);
+                padding: 16px 20px;
+                font-size: 0.88rem;
+              }
+              .svc-tab-btn.svc-tab-active {
+                border-left: none;
+                border-bottom: 3px solid #ffffff;
+              }
+              .svc-tab-inner { flex-direction: column; }
+              .svc-tab-icon-area { width: 100%; min-height: auto; margin-top: 20px; align-items: flex-start; justify-content: flex-start; }
+              .svc-tab-icon-ring { width: auto; height: auto; }
+              .svc-tab-icon-ring svg { width: 80px; height: 80px; }
+              .svc-tab-panel { min-height: auto; }
+            }
+          `}</style>
         </div>
       </section>
 
@@ -398,7 +743,7 @@ export default function Home() {
         <div style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: `url(/cta-mid-section.webp)`,
+          backgroundImage: `url(/mid-cta-bg.png)`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }} />

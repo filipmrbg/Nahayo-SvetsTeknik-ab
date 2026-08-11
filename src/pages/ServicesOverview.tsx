@@ -12,8 +12,8 @@ const container: React.CSSProperties = {
 
 export default function ServicesOverview() {
   usePageTitle(
-    'Våra Tjänster | Professionell Hantverk & Entreprenad',
-    'Utforska våra 3 universella tjänstekategorier: Renovering & Ombyggnad, Installation & Service samt Specialistarbete & Entreprenad.'
+    'Våra Tjänster | Nahayo SvetsTeknik ab',
+    'Utforska våra tjänster inom svetsning, licenssvetsning och industrisvetsning hos Nahayo SvetsTeknik ab i Gällivare.'
   );
 
   return (
@@ -41,7 +41,7 @@ export default function ServicesOverview() {
                 margin: '0 0 16px 0',
                 lineHeight: 1.15,
               }}>
-                Vad vi kan hjälpa dig med
+                Våra Tjänster
               </h1>
             </ScrollReveal>
             <ScrollReveal animation="scale-x-center" delay={150} duration={0.6}>
