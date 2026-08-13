@@ -1,13 +1,12 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Instagram, Mail, Phone, MapPin } from 'lucide-react';
 import images from '../data/images';
+import services from '../data/services';
 
-const serviceLinks = [
-  { label: 'Fältservice', href: '/#tjanster' },
-  { label: 'Maskinreparation', href: '/#tjanster' },
-  { label: 'Svetsning', href: '/#tjanster' },
-  { label: 'Tillverkning', href: '/#tjanster' },
-];
+const serviceLinks = services.map((s) => ({
+  label: s.title,
+  href: s.href,
+}));
 
 const socialIcons = [
   { Icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/nahayo_svetsteknik' },
