@@ -117,14 +117,9 @@ export default function About() {
             alignItems: 'center',
           }}>
 
-            {/* Left: Company Logo Card */}
+            {/* Left: Company Logo */}
             <ScrollReveal animation="scale-in">
               <div style={{
-                background: '#ffffff',
-                border: '1px solid rgba(0, 0, 0, 0.08)',
-                borderRadius: '16px',
-                padding: '24px',
-                boxShadow: '0 12px 32px rgba(0, 0, 0, 0.06)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -134,9 +129,11 @@ export default function About() {
                   alt={images.about.hero.alt}
                   style={{
                     width: '100%',
+                    maxWidth: '220px',
                     height: 'auto',
                     objectFit: 'contain',
-                    maxHeight: '160px',
+                    borderRadius: '12px',
+                    display: 'block',
                   }}
                 />
               </div>
