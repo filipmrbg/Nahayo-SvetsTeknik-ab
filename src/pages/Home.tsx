@@ -772,24 +772,19 @@ export default function Home() {
                 min-height: auto;
               }
               .svc-tab-header {
-                align-items: flex-start;
-                gap: 16px;
-                margin-bottom: 18px;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 22px;
+                text-align: center;
               }
               .svc-tab-title {
-                font-size: 1.45rem;
+                font-size: clamp(1.25rem, 5.8vw, 1.45rem);
                 line-height: 1.2;
+                max-width: 100%;
               }
               .svc-mobile-icon-badge {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 48px;
-                height: 48px;
-                border-radius: 12px;
-                background: rgba(245, 124, 0, 0.15);
-                border: 1px solid rgba(245, 124, 0, 0.3);
-                flex-shrink: 0;
+                display: none;
               }
               .svc-tab-icon-area {
                 display: none !important;
