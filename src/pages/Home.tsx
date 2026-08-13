@@ -742,13 +742,14 @@ export default function Home() {
                 background: rgba(10, 15, 26, 0.6);
               }
               .svc-tab-btn {
-                white-space: normal;
-                overflow-wrap: anywhere;
+                white-space: nowrap;
+                overflow-wrap: normal;
                 text-align: center;
                 border-bottom: none;
                 border-right: 1px solid rgba(255, 255, 255, 0.08);
-                padding: 14px 8px;
-                font-size: clamp(0.78rem, 2.8vw, 0.9rem);
+                padding: 14px 4px;
+                font-size: clamp(0.65rem, 2.5vw, 0.82rem);
+                letter-spacing: -0.02em;
                 display: flex;
                 align-items: center;
                 justify-content: center;
