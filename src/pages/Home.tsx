@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import {
   Star,
   Phone,
-  CheckCircle2,
   Wrench,
   FileText,
+  ArrowRight,
 } from 'lucide-react';
 import { FieldServiceIcon, MachineRepairIcon, WeldingIcon } from '../components/ServiceIcons';
 import ScrollReveal from '../components/ScrollReveal';
@@ -30,8 +30,6 @@ export default function Home() {
 
   const heroBgRef = useRef<HTMLDivElement>(null);
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
-  const [activeService, setActiveService] = useState(0);
-
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
@@ -456,7 +454,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── SECTION 5: HORIZONTAL EXPANDING SERVICES ──── */}
+      {/* ── SECTION 5: SERVICES GRID ──── */}
       <section
         id="tjanster"
         style={{
@@ -466,7 +464,6 @@ export default function Home() {
         }}
       >
         <div style={container}>
-          {/* Section Header */}
           <div style={{ marginBottom: '48px' }}>
             <ScrollReveal animation="blur-in">
               <h2 style={{
@@ -493,283 +490,88 @@ export default function Home() {
             </ScrollReveal>
           </div>
 
-          {/* Horizontal Expanding Cards */}
-          <ScrollReveal animation="fade-up" delay={150}>
-            <div className="svc-accordion-row">
-              {services.map((svc, idx) => {
-                const iconComponents = [FieldServiceIcon, MachineRepairIcon, WeldingIcon];
-                const IconComp = iconComponents[idx % iconComponents.length];
-                const isActive = activeService === idx;
-                return (
-                  <div
-                    key={svc.slug}
-                    className={`svc-exp-card ${isActive ? 'svc-exp-card-active' : ''}`}
-                    onClick={() => { if (!isActive) setActiveService(idx); }}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveService(idx); } }}
-                  >
-                    {/* Background image */}
-                    <div className="svc-exp-card-bg" style={{
-                      backgroundImage: `url(${svc.heroImage})`,
-                    }} />
-                    <div className="svc-exp-card-overlay" />
-
-                    {/* Collapsed label — always visible, hidden when active */}
-                    <div className="svc-exp-card-collapsed">
-                      <span className="svc-exp-card-number">0{idx + 1}</span>
-                      <span className="svc-exp-card-label">{svc.title}</span>
-                    </div>
-
-                    {/* Expanded content — fades in when active */}
-                    <div className="svc-exp-card-content">
-                      <div className="svc-exp-card-inner">
-                        <div className="svc-exp-card-icon">
-                          <IconComp size={56} color="var(--color-primary)" />
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '24px',
+          }}>
+            {services.map((svc, idx) => {
+              const iconComponents = [FieldServiceIcon, MachineRepairIcon, WeldingIcon];
+              const IconComp = iconComponents[idx % iconComponents.length];
+              return (
+                <ScrollReveal key={svc.slug} animation="fade-up" delay={idx * 120}>
+                  <a href={svc.href} className="service-card-link">
+                    <div className="service-card-el">
+                      <div className="service-card-img-wrap">
+                        <img
+                          src={svc.heroImage}
+                          alt={svc.title}
+                          className="service-card-img"
+                          loading="lazy"
+                        />
+                        <div className="service-card-img-overlay" />
+                        <div style={{
+                          position: 'absolute',
+                          top: '16px',
+                          left: '16px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '48px',
+                          height: '48px',
+                          borderRadius: '12px',
+                          background: 'rgba(245, 124, 0, 0.15)',
+                          border: '1px solid rgba(245, 124, 0, 0.3)',
+                          backdropFilter: 'blur(8px)',
+                          zIndex: 2,
+                        }}>
+                          <IconComp size={26} color="var(--color-primary)" />
                         </div>
-                        <h3 className="svc-exp-card-title">{svc.title}</h3>
-                        {svc.badge && <span className="svc-exp-card-badge">{svc.badge}</span>}
-                        <p className="svc-exp-card-desc">{svc.heroText}</p>
-                        <ul className="svc-exp-card-highlights">
-                          {svc.highlights.map((h, i) => (
-                            <li key={i}>
-                              <CheckCircle2 size={15} color="var(--color-primary)" style={{ flexShrink: 0 }} />
-                              {h}
-                            </li>
-                          ))}
-                        </ul>
-                        <div className="svc-exp-card-cta">
-                          <Button variant="primary" size="md" href={svc.href}>
-                            Läs mer
-                          </Button>
+                      </div>
+                      <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '10px', flex: 1 }}>
+                        <h3 style={{
+                          color: '#ffffff',
+                          fontSize: '1.25rem',
+                          fontWeight: 800,
+                          margin: 0,
+                          letterSpacing: '-0.01em',
+                        }}>
+                          {svc.title}
+                        </h3>
+                        <p style={{
+                          color: 'rgba(255, 255, 255, 0.6)',
+                          fontSize: '0.9rem',
+                          lineHeight: 1.6,
+                          margin: 0,
+                          display: '-webkit-box',
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                        }}>
+                          {svc.heroText}
+                        </p>
+                        <div style={{
+                          marginTop: 'auto',
+                          paddingTop: '8px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          color: 'var(--color-primary)',
+                          fontSize: '0.85rem',
+                          fontWeight: 700,
+                        }}>
+                          Läs mer
+                          <span className="service-card-arrow">
+                            <ArrowRight size={16} color="var(--color-primary)" />
+                          </span>
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
-          </ScrollReveal>
-
-          <style>{`
-            .svc-accordion-row {
-              display: flex;
-              gap: 12px;
-              height: 480px;
-              border-radius: 20px;
-              overflow: hidden;
-            }
-            .svc-exp-card {
-              flex: 1;
-              min-width: 80px;
-              position: relative;
-              cursor: pointer;
-              overflow: hidden;
-              border-radius: 16px;
-              border: 1px solid rgba(255, 255, 255, 0.08);
-              transition: flex 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
-              outline: none;
-            }
-            .svc-exp-card:focus-visible {
-              border-color: var(--color-primary);
-              box-shadow: 0 0 0 2px rgba(245, 124, 0, 0.4);
-            }
-            .svc-exp-card-active {
-              flex: 5;
-              border-color: rgba(245, 124, 0, 0.35);
-              cursor: default;
-            }
-
-            /* Background image */
-            .svc-exp-card-bg {
-              position: absolute;
-              inset: 0;
-              background-size: cover;
-              background-position: center;
-              transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
-              filter: brightness(0.35) saturate(0.8);
-            }
-            .svc-exp-card-active .svc-exp-card-bg {
-              filter: brightness(0.22) saturate(0.65);
-            }
-            .svc-exp-card:hover .svc-exp-card-bg {
-              transform: scale(1.05);
-            }
-            .svc-exp-card-active:hover .svc-exp-card-bg {
-              transform: scale(1);
-            }
-
-            /* Dark overlay gradient */
-            .svc-exp-card-overlay {
-              position: absolute;
-              inset: 0;
-              background: linear-gradient(180deg, rgba(20, 25, 28, 0.55) 0%, rgba(20, 25, 28, 0.92) 100%);
-              transition: background 0.5s ease;
-            }
-            .svc-exp-card-active .svc-exp-card-overlay {
-              background: linear-gradient(105deg, rgba(20, 25, 28, 0.96) 0%, rgba(20, 25, 28, 0.78) 45%, rgba(20, 25, 28, 0.35) 100%);
-            }
-
-            /* Collapsed label — vertical text on narrow strip */
-            .svc-exp-card-collapsed {
-              position: absolute;
-              inset: 0;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              gap: 18px;
-              z-index: 2;
-              transition: opacity 0.35s ease;
-            }
-            .svc-exp-card-active .svc-exp-card-collapsed {
-              opacity: 0;
-              pointer-events: none;
-            }
-            .svc-exp-card-number {
-              font-size: 0.72rem;
-              font-weight: 700;
-              color: rgba(255, 255, 255, 0.35);
-              letter-spacing: 0.15em;
-            }
-            .svc-exp-card-label {
-              writing-mode: vertical-rl;
-              text-orientation: mixed;
-              transform: rotate(180deg);
-              font-size: 1.05rem;
-              font-weight: 800;
-              color: rgba(255, 255, 255, 0.85);
-              letter-spacing: 0.06em;
-              text-transform: uppercase;
-              white-space: nowrap;
-              transition: color 0.3s ease;
-            }
-            .svc-exp-card:hover .svc-exp-card-label {
-              color: var(--color-primary);
-            }
-            .svc-exp-card-active:hover .svc-exp-card-label {
-              color: rgba(255, 255, 255, 0.85);
-            }
-
-            /* Expanded content — fades in when active */
-            .svc-exp-card-content {
-              position: absolute;
-              inset: 0;
-              z-index: 3;
-              display: flex;
-              align-items: center;
-              padding: 40px 44px;
-              opacity: 0;
-              transition: opacity 0.45s ease 0.25s;
-              pointer-events: none;
-            }
-            .svc-exp-card-active .svc-exp-card-content {
-              opacity: 1;
-              pointer-events: auto;
-            }
-            .svc-exp-card-inner {
-              max-width: 440px;
-              display: flex;
-              flex-direction: column;
-              gap: 14px;
-            }
-            .svc-exp-card-icon {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              width: 64px;
-              height: 64px;
-              border-radius: 14px;
-              background: rgba(245, 124, 0, 0.12);
-              border: 1px solid rgba(245, 124, 0, 0.25);
-              margin-bottom: 4px;
-            }
-            .svc-exp-card-title {
-              font-size: clamp(1.5rem, 2.5vw, 2rem);
-              font-weight: 800;
-              color: #ffffff;
-              margin: 0;
-              text-transform: uppercase;
-              letter-spacing: -0.01em;
-              line-height: 1.1;
-            }
-            .svc-exp-card-badge {
-              display: inline-block;
-              width: fit-content;
-              padding: 4px 12px;
-              border-radius: 999px;
-              background: rgba(245, 124, 0, 0.15);
-              border: 1px solid rgba(245, 124, 0, 0.3);
-              color: var(--color-primary);
-              font-size: 0.7rem;
-              font-weight: 700;
-              letter-spacing: 0.06em;
-              text-transform: uppercase;
-            }
-            .svc-exp-card-desc {
-              color: rgba(255, 255, 255, 0.75);
-              font-size: 0.95rem;
-              line-height: 1.65;
-              margin: 0;
-            }
-            .svc-exp-card-highlights {
-              list-style: none;
-              padding: 0;
-              margin: 4px 0 0 0;
-              display: flex;
-              flex-direction: column;
-              gap: 8px;
-            }
-            .svc-exp-card-highlights li {
-              display: flex;
-              align-items: center;
-              gap: 8px;
-              color: rgba(255, 255, 255, 0.7);
-              font-size: 0.85rem;
-            }
-            .svc-exp-card-cta {
-              margin-top: 8px;
-            }
-
-            /* ── Mobile: vertical accordion ── */
-            @media (max-width: 900px) {
-              .svc-accordion-row {
-                flex-direction: column;
-                height: auto;
-                gap: 10px;
-              }
-              .svc-exp-card {
-                min-width: 100%;
-                height: 72px;
-                flex: 0 0 72px;
-                border-radius: 14px;
-              }
-              .svc-exp-card-active {
-                flex: 0 0 auto;
-                height: auto;
-                min-height: 440px;
-              }
-              .svc-exp-card-collapsed {
-                flex-direction: row;
-                justify-content: flex-start;
-                padding: 0 24px;
-                gap: 14px;
-              }
-              .svc-exp-card-label {
-                writing-mode: horizontal-tb;
-                transform: none;
-                font-size: 1rem;
-              }
-              .svc-exp-card-content {
-                position: relative;
-                padding: 28px 24px;
-                align-items: flex-start;
-              }
-              .svc-exp-card-inner {
-                max-width: 100%;
-              }
-            }
-          `}</style>
+                  </a>
+                </ScrollReveal>
+              );
+            })}
+          </div>
         </div>
       </section>
 
