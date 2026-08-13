@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Instagram, ArrowUpRight } from 'lucide-react';
+import { Instagram } from 'lucide-react';
 
 export default function SocialBanner() {
   useEffect(() => {
@@ -48,17 +48,13 @@ export default function SocialBanner() {
           gap: '16px',
           flexWrap: 'wrap',
         }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
+          <span style={{
             color: 'var(--color-text-dark)',
             fontSize: '1.1rem',
             fontWeight: 700,
           }}>
-            <Instagram size={24} color="var(--color-primary)" style={{ flexShrink: 0 }} />
-            <span>Följ vår resa på sociala medier</span>
-          </div>
+            Följ vår resa på sociala medier
+          </span>
 
           <a
             href="https://www.instagram.com/nahayo_svetsteknik"
@@ -67,28 +63,28 @@ export default function SocialBanner() {
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '6px',
-              color: 'var(--color-primary)',
-              fontSize: '0.95rem',
-              fontWeight: 800,
+              gap: '8px',
+              background: 'var(--color-primary)',
+              color: '#ffffff',
+              fontSize: '0.9rem',
+              fontWeight: 700,
+              padding: '8px 18px',
+              borderRadius: '24px',
               textDecoration: 'none',
-              letterSpacing: '0.02em',
-              background: 'rgba(230, 81, 0, 0.08)',
-              padding: '6px 14px',
-              borderRadius: '20px',
+              boxShadow: '0 2px 8px rgba(230, 81, 0, 0.25)',
               transition: 'all 0.2s ease',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--color-primary)';
-              e.currentTarget.style.color = '#ffffff';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+              e.currentTarget.style.boxShadow = '0 4px 14px rgba(230, 81, 0, 0.35)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(230, 81, 0, 0.08)';
-              e.currentTarget.style.color = 'var(--color-primary)';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(230, 81, 0, 0.25)';
             }}
           >
+            <Instagram size={18} />
             <span>@nahayo_svetsteknik</span>
-            <ArrowUpRight size={16} />
           </a>
         </div>
 
