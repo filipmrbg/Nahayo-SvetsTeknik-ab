@@ -31,12 +31,7 @@ interface HiddenStyle {
   transformOrigin?: string;
 }
 
-function getHidden(animation: Animation, mobile: boolean): HiddenStyle {
-  if (mobile) {
-    // Mobile elements remain fully visible to prevent hidden content bugs on mobile browsers
-    return { opacity: 1, transform: 'none', filter: 'none', clipPath: 'none' };
-  }
-
+function getHidden(animation: Animation): HiddenStyle {
   const yOffset = '20px';
   const xOffset = '20px';
 
@@ -84,9 +79,9 @@ export default function ScrollReveal({
   // Detect mobile view
   const mobile = useMemo(() => typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches, []);
   
-  // Mobile animations are short and snappy (350ms) to ensure smooth scrolling
-  const effectiveDuration = mobile ? 0.35 : duration;
-  const effectiveDelay = mobile ? Math.round(delay * 0.25) : delay;
+  // Mobile animations are crisp and slightly faster (450ms) with snappy delays for smooth touch scrolling
+  const effectiveDuration = mobile ? Math.min(0.45, duration) : duration;
+  const effectiveDelay = mobile ? Math.round(delay * 0.4) : delay;
 
   const actualThreshold = threshold;
 
@@ -101,7 +96,7 @@ export default function ScrollReveal({
           observer.disconnect();
         }
       },
-      { threshold: actualThreshold, rootMargin: '50px 0px 50px 0px' }
+      { threshold: actualThreshold, rootMargin: '60px 0px 60px 0px' }
     );
 
     observer.observe(el);
@@ -117,18 +112,17 @@ export default function ScrollReveal({
     }
   }, [visible, effectiveDuration, effectiveDelay]);
 
-  const hidden = getHidden(animation, mobile);
+  const hidden = getHidden(animation);
 
   // Custom premium curve: gentler start than easeOutExpo to avoid frame drops,
   // but still has a luxurious deceleration tail (easeOutQuint).
   const easingStyle = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
-  // Clip animations are disabled on mobile to conserve performance.
-  const isClipAnimation = !mobile && (animation === 'clip-in' || animation === 'reveal-mask');
+  const isClipAnimation = animation === 'clip-in' || animation === 'reveal-mask';
 
-  // Build transition properties dynamically so we do not animate unused/expensive properties (like filter).
-  const outerTransitionProps = mobile ? ['opacity'] : ['opacity', 'transform'];
-  if (!mobile && animation === 'blur-in') {
+  // Build transition properties dynamically so we do not animate unused/expensive properties
+  const outerTransitionProps = ['opacity', 'transform'];
+  if (animation === 'blur-in') {
     outerTransitionProps.push('filter');
   }
   const outerTransitionStyle = outerTransitionProps
@@ -168,12 +162,12 @@ export default function ScrollReveal({
       ref={ref}
       style={{
         opacity: visible ? 1 : (isClipAnimation ? 1 : hidden.opacity), // Keep outer div opaque for clip animations
-        transform: animationDone ? 'none' : (visible ? getVisibleTransform(animation) : (mobile ? 'none' : hidden.transform)),
-        filter: animationDone ? 'none' : (visible ? 'none' : (mobile ? 'none' : hidden.filter)),
+        transform: animationDone ? 'none' : (visible ? getVisibleTransform(animation) : hidden.transform),
+        filter: animationDone ? 'none' : (visible ? 'none' : hidden.filter),
         transformOrigin: hidden.transformOrigin,
         transition: outerTransitionStyle,
         transitionDelay: `${effectiveDelay}ms`,
-        willChange: animationDone ? undefined : 'opacity',
+        willChange: animationDone ? undefined : 'opacity, transform',
         backfaceVisibility: 'hidden',
         WebkitBackfaceVisibility: 'hidden',
       }}

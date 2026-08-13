@@ -24,7 +24,7 @@ const capabilities = [
   {
     icon: ShieldCheck,
     title: 'Certifierad licenssvetsning',
-    desc: 'Bred kompetens inom TIG, MIG/MAG och MMA svetsning för stål, rostfritt och aluminium.',
+    desc: 'Bred kompetens inom MIG/MAG och MMA svetsning för stål och rostfritt stål.',
   },
   {
     icon: Truck,
@@ -388,7 +388,7 @@ export default function About() {
                 'Certifierad licenssvetsning enligt krav',
                 'Fältservice med korta inställelsetider',
                 'Noggrant utförande och fasta prisuppgifter',
-                'Arbeten i stål, rostfritt och aluminium',
+                'Arbeten i stål och rostfritt stål',
               ].map((item, idx) => (
                 <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <CheckCircle2 size={20} color="var(--color-primary)" style={{ flexShrink: 0 }} />

@@ -126,13 +126,13 @@ export const services: ServiceItem[] = [
     title: 'Svetsning',
     image: '/service-3.jpg',
     href: '/tjanster/svetsning-svetsteknik',
-    tag: 'Stål, aluminium och rostfritt',
+    tag: 'Stål och rostfritt stål',
     badge: 'Certifierade Svetsare',
-    heroText: 'Professionella svetsningstjänster med höga krav på hållfasthet och kvalitet. Vi utför licenssvetsning i stål, aluminium och rostfritt för alla typer av industrier och projekt.',
+    heroText: 'Professionella svetsningstjänster med höga krav på hållfasthet och kvalitet. Vi utför licenssvetsning i stål och rostfritt stål för alla typer av industrier och projekt.',
     heroImage: '/service-3.jpg',
     highlights: [
-      'Certifierad licenssvetsning (TIG, MIG/MAG, MMA)',
-      'Svetsning i stål, rostfritt och aluminium',
+      'Certifierad licenssvetsning (MIG/MAG, MMA / pinnsvetsning)',
+      'Svetsning i stål och rostfritt stål',
       'Reparationssvetsning och konstruktionsförstärkningar',
     ],
     sections: [
@@ -141,7 +141,7 @@ export const services: ServiceItem[] = [
         text: 'Oavsett om det gäller nyproduktion, stålkonstruktioner eller reparation av spruckna och slitna metalldelar garanterar våra certifierade svetsare hållfasta och stabila fogar.',
         bullets: [
           'Licenssvetsning – garanterad hållfasthet enligt gällande krav och standarder',
-          'Mångsidiga Material – expertis inom stål, rostfritt stål och aluminium',
+          'Mångsidiga Material – expertis inom stål och rostfritt stål',
           'Reparationssvetsning – förstärkning och lagning av belastade komponenter',
         ],
         image: '/service-3.jpg',
@@ -160,7 +160,7 @@ export const services: ServiceItem[] = [
     faq: [
       {
         question: 'Vilka svetsmetoder använder ni?',
-        answer: 'Vi behärskar TIG, MIG/MAG och MMA (pinnsvetsning) för optimalt resultat i alla material.',
+        answer: 'Vi utför MIG/MAG och MMA (pinnsvetsning) för optimalt resultat i stål och rostfritt stål.',
       },
       {
         question: 'Svetsar ni både åt företag och privatpersoner?',

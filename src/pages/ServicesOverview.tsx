@@ -179,7 +179,17 @@ export default function ServicesOverview() {
           .spaced-screenshot-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
         @media (max-width: 768px) {
-          .spaced-screenshot-grid { grid-template-columns: 1fr !important; }
+          .spaced-screenshot-grid { grid-template-columns: 1fr !important; gap: 16px; }
+          .spaced-tile { aspect-ratio: 16/9; min-height: 190px; }
+          .spaced-tile-content { padding: 18px 16px; }
+          .spaced-tile-action {
+            background: var(--color-primary);
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+          }
         }
       `}</style>
     </main>

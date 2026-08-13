@@ -14,7 +14,6 @@ import ReviewCard from '../components/ReviewCard';
 import SocialBanner from '../components/SocialBanner';
 import CallModal from '../components/CallModal';
 import { usePageTitle } from '../hooks/usePageTitle';
-import images from '../data/images';
 import services from '../data/services';
 
 const container: React.CSSProperties = {
@@ -92,6 +91,7 @@ export default function Home() {
             height: '100%',
             objectFit: 'cover',
             zIndex: 0,
+            backgroundColor: '#07080a',
           }}
         >
           <source src="/hero-bg-video.mp4" type="video/mp4" />
@@ -533,36 +533,22 @@ export default function Home() {
 
                   return (
                     <div className={`svc-tab-content-wrap ${phase}`}>
-                      <h3 className="svc-stagger svc-stagger-1" style={{
-                        fontSize: 'clamp(1.4rem, 2.5vw, 1.8rem)',
-                        fontWeight: 800,
-                        color: '#ffffff',
-                        margin: '0 0 24px 0',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.02em',
-                      }}>
-                        {svc.title}
-                      </h3>
+                      <div className="svc-tab-header">
+                        <h3 className="svc-stagger svc-stagger-1 svc-tab-title">
+                          {svc.title}
+                        </h3>
+                        <div className="svc-mobile-icon-badge svc-stagger svc-stagger-2">
+                          <IconComp size={36} color="var(--color-primary)" />
+                        </div>
+                      </div>
 
                       <div className="svc-tab-inner">
                         <div style={{ flex: 1 }}>
-                          <p className="svc-stagger svc-stagger-2" style={{
-                            color: 'rgba(255, 255, 255, 0.8)',
-                            fontSize: '1rem',
-                            lineHeight: 1.75,
-                            margin: '0 0 24px 0',
-                          }}>
+                          <p className="svc-stagger svc-stagger-2 svc-tab-desc">
                             {svc.heroText}
                           </p>
 
-                          <ul style={{
-                            listStyle: 'none',
-                            padding: 0,
-                            margin: '0 0 32px 0',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: '10px',
-                          }}>
+                          <ul className="svc-highlights-list">
                             {svc.highlights.map((h, i) => (
                               <li key={i} className={`svc-stagger svc-stagger-${i + 3}`} style={{
                                 display: 'flex',
@@ -577,7 +563,7 @@ export default function Home() {
                             ))}
                           </ul>
 
-                          <div className="svc-stagger svc-stagger-6">
+                          <div className="svc-stagger svc-stagger-6 svc-cta-wrapper">
                             <Button variant="primary" size="lg" href="/offert">
                               Få offert
                             </Button>
@@ -642,6 +628,40 @@ export default function Home() {
               overflow: hidden;
               position: relative;
               min-height: 340px;
+            }
+            .svc-tab-header {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-bottom: 20px;
+            }
+            .svc-tab-title {
+              font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+              font-weight: 800;
+              color: #ffffff;
+              margin: 0;
+              text-transform: uppercase;
+              letter-spacing: 0.02em;
+            }
+            .svc-mobile-icon-badge {
+              display: none;
+            }
+            .svc-tab-desc {
+              color: rgba(255, 255, 255, 0.8);
+              font-size: 1rem;
+              line-height: 1.75;
+              margin: 0 0 24px 0;
+            }
+            .svc-highlights-list {
+              list-style: none;
+              padding: 0;
+              margin: 0 0 32px 0;
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+            }
+            .svc-cta-wrapper {
+              display: inline-block;
             }
 
             /* ── Phase transitions ── */
@@ -709,29 +729,79 @@ export default function Home() {
             }
 
             @media (max-width: 900px) {
-              .svc-tabs-layout { grid-template-columns: 1fr; }
+              .svc-tabs-layout {
+                grid-template-columns: 1fr;
+                border-radius: 16px;
+              }
               .svc-tabs-sidebar {
-                flex-direction: row;
-                overflow-x: auto;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                width: 100%;
                 border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+                background: rgba(10, 15, 26, 0.6);
               }
               .svc-tab-btn {
-                white-space: nowrap;
+                white-space: normal;
+                word-break: break-word;
+                text-align: center;
                 border-bottom: none;
-                border-right: 1px solid rgba(255, 255, 255, 0.06);
-                padding: 16px 20px;
-                font-size: 0.88rem;
-              }
+                border-right: 1px solid rgba(255, 255, 255, 0.08);
+                padding: 14px 6px;
+                font-size: clamp(0.75rem, 2.8vw, 0.88rem);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 52px;
               .svc-tab-btn.svc-tab-active {
                 border-left: none;
-                border-bottom: 3px solid #ffffff;
+                background: var(--color-primary);
+                color: #ffffff;
+                border-color: var(--color-primary);
+                font-weight: 800;
+                box-shadow: inset 0 -2px 0 rgba(0,0,0,0.2);
               }
-              .svc-tab-inner { flex-direction: column; }
-              .svc-tab-icon-area { width: 100%; min-height: auto; margin-top: 20px; align-items: flex-start; justify-content: flex-start; }
-              .svc-tab-icon-ring { width: auto; height: auto; }
-              .svc-tab-icon-ring svg { width: 80px; height: 80px; }
-              .svc-tab-panel { min-height: auto; }
+              .svc-tab-panel {
+                padding: 24px 18px 28px 18px;
+                min-height: auto;
+              }
+              .svc-mobile-icon-badge {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 48px;
+                height: 48px;
+                border-radius: 12px;
+                background: rgba(245, 124, 0, 0.15);
+                border: 1px solid rgba(245, 124, 0, 0.3);
+                flex-shrink: 0;
+              }
+              .svc-tab-icon-area {
+                display: none !important;
+              }
+              .svc-tab-inner {
+                flex-direction: column;
+                gap: 0;
+              }
+              .svc-tab-desc {
+                font-size: 0.94rem;
+                line-height: 1.65;
+                margin-bottom: 20px;
+              }
+              .svc-highlights-list {
+                margin-bottom: 24px;
+                gap: 12px;
+              }
+              .svc-cta-wrapper {
+                display: block;
+                width: 100%;
+              }
+              .svc-cta-wrapper a, .svc-cta-wrapper button {
+                width: 100% !important;
+                display: block !important;
+                text-align: center !important;
+                box-sizing: border-box !important;
+              }
             }
           `}</style>
         </div>

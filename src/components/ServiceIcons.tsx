@@ -114,7 +114,7 @@ export const MachineRepairIcon: React.FC<IconProps> = ({ size = 140, color = 'cu
 );
 
 /**
- * Svetsning icon – Professional TIG/MIG welding torch, electric arc & welding seam
+ * Svetsning icon – Professional MIG/MAG welding torch, electric arc & welding seam
  */
 export const WeldingIcon: React.FC<IconProps> = ({ size = 140, color = 'currentColor', className }) => (
   <svg width={size} height={size} viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
