@@ -743,16 +743,21 @@ export default function Home() {
               }
               .svc-tab-btn {
                 white-space: normal;
-                word-break: break-word;
+                overflow-wrap: anywhere;
                 text-align: center;
                 border-bottom: none;
                 border-right: 1px solid rgba(255, 255, 255, 0.08);
-                padding: 14px 6px;
-                font-size: clamp(0.75rem, 2.8vw, 0.88rem);
+                padding: 14px 8px;
+                font-size: clamp(0.78rem, 2.8vw, 0.9rem);
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                min-height: 52px;
+                min-height: 58px;
+                line-height: 1.25;
+              }
+              .svc-tab-btn:last-child {
+                border-right: none;
+              }
               .svc-tab-btn.svc-tab-active {
                 border-left: none;
                 background: var(--color-primary);
@@ -762,8 +767,17 @@ export default function Home() {
                 box-shadow: inset 0 -2px 0 rgba(0,0,0,0.2);
               }
               .svc-tab-panel {
-                padding: 24px 18px 28px 18px;
+                padding: 28px 20px 32px;
                 min-height: auto;
+              }
+              .svc-tab-header {
+                align-items: flex-start;
+                gap: 16px;
+                margin-bottom: 18px;
+              }
+              .svc-tab-title {
+                font-size: 1.45rem;
+                line-height: 1.2;
               }
               .svc-mobile-icon-badge {
                 display: flex;
@@ -784,13 +798,17 @@ export default function Home() {
                 gap: 0;
               }
               .svc-tab-desc {
-                font-size: 0.94rem;
-                line-height: 1.65;
-                margin-bottom: 20px;
+                font-size: 0.98rem;
+                line-height: 1.7;
+                margin-bottom: 22px;
               }
               .svc-highlights-list {
-                margin-bottom: 24px;
-                gap: 12px;
+                margin-bottom: 28px;
+                gap: 14px;
+              }
+              .svc-highlights-list li {
+                align-items: flex-start !important;
+                line-height: 1.55;
               }
               .svc-cta-wrapper {
                 display: block;
