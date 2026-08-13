@@ -13,20 +13,20 @@ const container: React.CSSProperties = {
 
 const faqItems = [
   {
-    question: 'Arbetar ni med ROT-avdrag?',
-    answer: 'Ja, vi hanterar ROT-avdrag och ser till att faktureringen sker korrekt. Arbeten som dränering och inkoppling av VA till befintliga hus berättigar till avdraget.',
-  },
-  {
     question: 'Hur lång tid tar det att få ett prisförslag?',
-    answer: 'Vi brukar återkomma med en offert inom 1–3 arbetsdagar efter platsbesöket, beroende på projektets omfattning.',
+    answer: 'Vi återkopplar vanligtvis inom 24 timmar med ett prisförslag eller för att stämma av detaljer kring ditt projekt.',
   },
   {
     question: 'Tar ni på er jobb utanför Gällivare?',
-    answer: 'Gällivare är vår utgångspunkt, men vi kan ta uppdrag i närliggande områden och hela regionen vid större projekt. Hör av dig så berättar vi mer.',
+    answer: 'Gällivare är vår utgångspunkt, men vi utför fältservice och svetsarbeten i närområdet och hela regionen vid större uppdrag.',
   },
   {
-    question: 'Kan jag boka ett platsbesök direkt?',
-    answer: 'Absolut! Skicka ett meddelande via formuläret eller ring oss, så bokar vi in ett kostnadsfritt platsbesök som passar dig.',
+    question: 'Utför ni både akuta reparationer och planerade projekt?',
+    answer: 'Ja, vi står redo för akuta maskinstopp via vår fältservice och tar även emot större planerade underhålls- och svetsuppdrag.',
+  },
+  {
+    question: 'Svetsar ni åt både företag och privatpersoner?',
+    answer: 'Absolut! Vi tar oss an allt från industriella stålkonstruktioner för företag till mindre laga- och reparationsuppdrag för privatpersoner.',
   },
 ];
 
