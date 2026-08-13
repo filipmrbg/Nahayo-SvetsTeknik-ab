@@ -753,6 +753,7 @@ export default function Home() {
                 align-items: center;
                 justify-content: center;
                 min-height: 52px;
+              }
               .svc-tab-btn.svc-tab-active {
                 border-left: none;
                 background: var(--color-primary);
@@ -778,10 +779,14 @@ export default function Home() {
               }
               .svc-tab-icon-area {
                 display: none !important;
+                width: 0 !important;
+                min-height: 0 !important;
               }
               .svc-tab-inner {
-                flex-direction: column;
-                gap: 0;
+                display: block;
+              }
+              .svc-tab-inner > div:first-child {
+                width: 100%;
               }
               .svc-tab-desc {
                 font-size: 0.94rem;

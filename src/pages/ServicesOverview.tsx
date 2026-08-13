@@ -180,7 +180,7 @@ export default function ServicesOverview() {
         }
         @media (max-width: 768px) {
           .spaced-screenshot-grid { grid-template-columns: 1fr !important; gap: 16px; }
-          .spaced-tile { aspect-ratio: 3/4; min-height: 280px; }
+          .spaced-tile { aspect-ratio: 16/10; min-height: 220px; }
           .spaced-tile-content {
             flex-direction: column;
             align-items: flex-start;
