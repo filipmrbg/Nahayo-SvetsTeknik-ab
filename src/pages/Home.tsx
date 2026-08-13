@@ -4,7 +4,6 @@ import {
   Phone,
   Wrench,
   FileText,
-  ArrowRight,
 } from 'lucide-react';
 import { FieldServiceIcon, MachineRepairIcon, WeldingIcon } from '../components/ServiceIcons';
 import ScrollReveal from '../components/ScrollReveal';
@@ -500,74 +499,50 @@ export default function Home() {
               const IconComp = iconComponents[idx % iconComponents.length];
               return (
                 <ScrollReveal key={svc.slug} animation="fade-up" delay={idx * 120}>
-                  <a href={svc.href} className="service-card-link">
-                    <div className="service-card-el">
-                      <div className="service-card-img-wrap">
-                        <img
-                          src={svc.heroImage}
-                          alt={svc.title}
-                          className="service-card-img"
-                          loading="lazy"
-                        />
-                        <div className="service-card-img-overlay" />
-                        <div style={{
-                          position: 'absolute',
-                          top: '16px',
-                          left: '16px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          width: '48px',
-                          height: '48px',
-                          borderRadius: '12px',
-                          background: 'rgba(245, 124, 0, 0.15)',
-                          border: '1px solid rgba(245, 124, 0, 0.3)',
-                          backdropFilter: 'blur(8px)',
-                          zIndex: 2,
-                        }}>
-                          <IconComp size={26} color="var(--color-primary)" />
-                        </div>
-                      </div>
-                      <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '10px', flex: 1 }}>
-                        <h3 style={{
-                          color: '#ffffff',
-                          fontSize: '1.25rem',
-                          fontWeight: 800,
-                          margin: 0,
-                          letterSpacing: '-0.01em',
-                        }}>
-                          {svc.title}
-                        </h3>
-                        <p style={{
-                          color: 'rgba(255, 255, 255, 0.6)',
-                          fontSize: '0.9rem',
-                          lineHeight: 1.6,
-                          margin: 0,
-                          display: '-webkit-box',
-                          WebkitLineClamp: 3,
-                          WebkitBoxOrient: 'vertical',
-                          overflow: 'hidden',
-                        }}>
-                          {svc.heroText}
-                        </p>
-                        <div style={{
-                          marginTop: 'auto',
-                          paddingTop: '8px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '8px',
-                          color: 'var(--color-primary)',
-                          fontSize: '0.85rem',
-                          fontWeight: 700,
-                        }}>
-                          Läs mer
-                          <span className="service-card-arrow">
-                            <ArrowRight size={16} color="var(--color-primary)" />
-                          </span>
-                        </div>
-                      </div>
+                  <article style={{
+                    height: '100%',
+                    minHeight: '280px',
+                    padding: '32px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    gap: '20px',
+                    background: 'rgba(255, 255, 255, 0.04)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: '16px',
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '64px',
+                      height: '64px',
+                      borderRadius: '14px',
+                      background: 'rgba(245, 124, 0, 0.12)',
+                      border: '1px solid rgba(245, 124, 0, 0.25)',
+                    }}>
+                      <IconComp size={34} color="var(--color-primary)" />
                     </div>
-                  </a>
+                    <div>
+                      <h3 style={{
+                        color: '#ffffff',
+                        fontSize: '1.3rem',
+                        fontWeight: 800,
+                        margin: '0 0 12px',
+                        letterSpacing: '-0.01em',
+                      }}>
+                        {svc.title}
+                      </h3>
+                      <p style={{
+                        color: 'rgba(255, 255, 255, 0.68)',
+                        fontSize: '0.95rem',
+                        lineHeight: 1.65,
+                        margin: 0,
+                      }}>
+                        {svc.heroText}
+                      </p>
+                    </div>
+                  </article>
                 </ScrollReveal>
               );
             })}
