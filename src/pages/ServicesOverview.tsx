@@ -180,19 +180,36 @@ export default function ServicesOverview() {
         }
         @media (max-width: 768px) {
           .spaced-screenshot-grid { grid-template-columns: 1fr !important; gap: 16px; }
-          .spaced-tile { aspect-ratio: 3/4; min-height: 280px; }
+          .spaced-tile {
+            aspect-ratio: auto;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+          }
+          .spaced-tile-img {
+            height: 220px;
+            object-fit: cover;
+          }
+          .spaced-tile-overlay { display: none; }
           .spaced-tile-content {
+            position: static;
             flex-direction: column;
             align-items: flex-start;
-            gap: 10px;
-            padding: 20px 18px;
+            gap: 12px;
+            padding: 20px;
+            background: #ffffff;
           }
           .spaced-tile-right { margin-left: 0; }
-          .spaced-tile-title { font-size: 1.2rem; }
+          .spaced-tile-title {
+            color: var(--color-text-dark);
+            font-size: 1.2rem;
+            text-shadow: none;
+          }
           .spaced-tile-action {
             background: var(--color-primary);
             color: #ffffff;
-            padding: 7px 16px;
+            padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.78rem;
             font-weight: 700;
