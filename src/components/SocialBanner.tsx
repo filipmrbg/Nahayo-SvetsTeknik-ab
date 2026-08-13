@@ -64,26 +64,31 @@ export default function SocialBanner() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              background: 'var(--color-primary)',
-              color: '#ffffff',
+              background: '#ffffff',
+              color: '#0f172a',
               fontSize: '0.9rem',
               fontWeight: 700,
               padding: '8px 18px',
               borderRadius: '24px',
+              border: '1px solid rgba(0, 0, 0, 0.12)',
               textDecoration: 'none',
-              boxShadow: '0 2px 8px rgba(230, 81, 0, 0.25)',
+              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)',
               transition: 'all 0.2s ease',
             }}
             onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#f8fafc';
+              e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.2)';
               e.currentTarget.style.transform = 'translateY(-1px)';
-              e.currentTarget.style.boxShadow = '0 4px 14px rgba(230, 81, 0, 0.35)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
             }}
             onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#ffffff';
+              e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.12)';
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 2px 8px rgba(230, 81, 0, 0.25)';
+              e.currentTarget.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.04)';
             }}
           >
-            <Instagram size={18} />
+            <Instagram size={18} color="var(--color-primary)" />
             <span>@nahayo_svetsteknik</span>
           </a>
         </div>
