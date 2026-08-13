@@ -57,7 +57,7 @@ export default function SocialBanner() {
             fontWeight: 700,
           }}>
             <Instagram size={24} color="var(--color-primary)" style={{ flexShrink: 0 }} />
-            <span>Följ våra senast genomförda projekt på Instagram</span>
+            <span>Följ vår resa på sociala medier</span>
           </div>
 
           <a
