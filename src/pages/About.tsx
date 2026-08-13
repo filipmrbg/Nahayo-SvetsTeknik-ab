@@ -40,18 +40,8 @@ const capabilities = [
 
 const teamMembers = [
   {
-    role: 'Ägare & Licenssvetsare',
-    name: 'Orly',
-    photo: '',
-  },
-  {
-    role: 'Projekt- & Servicedirektör',
-    name: 'Projektledare',
-    photo: '',
-  },
-  {
-    role: 'Certifierat Yrkesteam',
-    name: 'Serviceteamet',
+    role: 'Grundare, Ägare & Licenssvetsare',
+    name: 'Orly Nahayo',
     photo: '',
   },
 ];
