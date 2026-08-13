@@ -30,21 +30,7 @@ export default function Home() {
 
   const heroBgRef = useRef<HTMLDivElement>(null);
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState(0);
-  const [displayedTab, setDisplayedTab] = useState(0);
-  const [tabPhase, setTabPhase] = useState<'visible' | 'exiting' | 'entering'>('visible');
-
-  const handleTabSwitch = (idx: number) => {
-    if (idx === activeTab || tabPhase !== 'visible') return;
-    setActiveTab(idx);
-    setTabPhase('exiting');
-    // Ultra-fast exit, followed by snappy enter
-    setTimeout(() => {
-      setDisplayedTab(idx);
-      setTabPhase('entering');
-      setTimeout(() => setTabPhase('visible'), 400);
-    }, 120);
-  };
+  const [activeService, setActiveService] = useState(0);
 
   useEffect(() => {
     let ticking = false;
@@ -470,7 +456,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── SECTION 5: VERTICAL TAB SERVICES (KLAS MEK STYLE) ──── */}
+      {/* ── SECTION 5: HORIZONTAL EXPANDING SERVICES ──── */}
       <section
         id="tjanster"
         style={{
@@ -502,305 +488,285 @@ export default function Home() {
                 lineHeight: 1.7,
                 margin: 0,
               }}>
-                På Nahayo SvetsTeknik ab erbjuder vi professionella tjänster inom fältservice, maskinreparation, svetsning, tillverkning och montage. Vi säkerställer hållbara och effektiva lösningar för företag och industrier.
+                På Nahayo SvetsTeknik AB erbjuder vi professionella tjänster inom fältservice, maskinreparation och svetsning. Vi säkerställer hållbara och effektiva lösningar för företag och industrier.
               </p>
             </ScrollReveal>
           </div>
 
-          {/* Vertical Tabs + Content Panel */}
+          {/* Horizontal Expanding Cards */}
           <ScrollReveal animation="fade-up" delay={150}>
-            <div className="svc-tabs-layout">
-              {/* Left: Vertical Tab Buttons */}
-              <div className="svc-tabs-sidebar">
-                {services.map((svc, idx) => (
-                  <button
+            <div className="svc-accordion-row">
+              {services.map((svc, idx) => {
+                const iconComponents = [FieldServiceIcon, MachineRepairIcon, WeldingIcon];
+                const IconComp = iconComponents[idx % iconComponents.length];
+                const isActive = activeService === idx;
+                return (
+                  <div
                     key={svc.slug}
-                    onClick={() => handleTabSwitch(idx)}
-                    className={`svc-tab-btn ${activeTab === idx ? 'svc-tab-active' : ''}`}
+                    className={`svc-exp-card ${isActive ? 'svc-exp-card-active' : ''}`}
+                    onClick={() => { if (!isActive) setActiveService(idx); }}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveService(idx); } }}
                   >
-                    {svc.title}
-                  </button>
-                ))}
-              </div>
+                    {/* Background image */}
+                    <div className="svc-exp-card-bg" style={{
+                      backgroundImage: `url(${svc.heroImage})`,
+                    }} />
+                    <div className="svc-exp-card-overlay" />
 
-              {/* Right: Active Service Content */}
-              <div className="svc-tab-panel">
-                {(() => {
-                  const iconComponents = [FieldServiceIcon, MachineRepairIcon, WeldingIcon];
-                  const IconComp = iconComponents[displayedTab % iconComponents.length];
-                  const svc = services[displayedTab];
-                  const phase = tabPhase === 'exiting' ? 'svc-phase-exit' : tabPhase === 'entering' ? 'svc-phase-enter' : 'svc-phase-visible';
+                    {/* Collapsed label — always visible, hidden when active */}
+                    <div className="svc-exp-card-collapsed">
+                      <span className="svc-exp-card-number">0{idx + 1}</span>
+                      <span className="svc-exp-card-label">{svc.title}</span>
+                    </div>
 
-                  return (
-                    <div className={`svc-tab-content-wrap ${phase}`}>
-                      <div className="svc-tab-header">
-                        <h3 className="svc-stagger svc-stagger-1 svc-tab-title">
-                          {svc.title}
-                        </h3>
-                        <div className="svc-mobile-icon-badge svc-stagger svc-stagger-2">
-                          <IconComp size={36} color="var(--color-primary)" />
+                    {/* Expanded content — fades in when active */}
+                    <div className="svc-exp-card-content">
+                      <div className="svc-exp-card-inner">
+                        <div className="svc-exp-card-icon">
+                          <IconComp size={56} color="var(--color-primary)" />
                         </div>
-                      </div>
-
-                      <div className="svc-tab-inner">
-                        <div style={{ flex: 1 }}>
-                          <p className="svc-stagger svc-stagger-2 svc-tab-desc">
-                            {svc.heroText}
-                          </p>
-
-                          <ul className="svc-highlights-list">
-                            {svc.highlights.map((h, i) => (
-                              <li key={i} className={`svc-stagger svc-stagger-${i + 3}`} style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '10px',
-                                color: 'rgba(255, 255, 255, 0.75)',
-                                fontSize: '0.92rem',
-                              }}>
-                                <CheckCircle2 size={16} color="var(--color-primary)" style={{ flexShrink: 0 }} />
-                                {h}
-                              </li>
-                            ))}
-                          </ul>
-
-                          <div className="svc-stagger svc-stagger-6 svc-cta-wrapper">
-                            <Button variant="primary" size="lg" href="/offert">
-                              Få offert
-                            </Button>
-                          </div>
-                        </div>
-
-                        <div className="svc-tab-icon-area svc-stagger svc-stagger-2">
-                          <div className="svc-tab-icon-ring">
-                            <IconComp size={160} color="var(--color-primary)" />
-                          </div>
+                        <h3 className="svc-exp-card-title">{svc.title}</h3>
+                        {svc.badge && <span className="svc-exp-card-badge">{svc.badge}</span>}
+                        <p className="svc-exp-card-desc">{svc.heroText}</p>
+                        <ul className="svc-exp-card-highlights">
+                          {svc.highlights.map((h, i) => (
+                            <li key={i}>
+                              <CheckCircle2 size={15} color="var(--color-primary)" style={{ flexShrink: 0 }} />
+                              {h}
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="svc-exp-card-cta">
+                          <Button variant="primary" size="md" href={svc.href}>
+                            Läs mer
+                          </Button>
                         </div>
                       </div>
                     </div>
-                  );
-                })()}
-              </div>
+                  </div>
+                );
+              })}
             </div>
           </ScrollReveal>
 
           <style>{`
-            .svc-tabs-layout {
-              display: grid;
-              grid-template-columns: 240px 1fr;
-              gap: 0;
-              border: 1px solid rgba(255, 255, 255, 0.1);
-              border-radius: 16px;
+            .svc-accordion-row {
+              display: flex;
+              gap: 12px;
+              height: 480px;
+              border-radius: 20px;
               overflow: hidden;
-              background: rgba(255, 255, 255, 0.03);
             }
-            .svc-tabs-sidebar {
+            .svc-exp-card {
+              flex: 1;
+              min-width: 80px;
+              position: relative;
+              cursor: pointer;
+              overflow: hidden;
+              border-radius: 16px;
+              border: 1px solid rgba(255, 255, 255, 0.08);
+              transition: flex 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+              outline: none;
+            }
+            .svc-exp-card:focus-visible {
+              border-color: var(--color-primary);
+              box-shadow: 0 0 0 2px rgba(245, 124, 0, 0.4);
+            }
+            .svc-exp-card-active {
+              flex: 5;
+              border-color: rgba(245, 124, 0, 0.35);
+              cursor: default;
+            }
+
+            /* Background image */
+            .svc-exp-card-bg {
+              position: absolute;
+              inset: 0;
+              background-size: cover;
+              background-position: center;
+              transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+              filter: brightness(0.35) saturate(0.8);
+            }
+            .svc-exp-card-active .svc-exp-card-bg {
+              filter: brightness(0.22) saturate(0.65);
+            }
+            .svc-exp-card:hover .svc-exp-card-bg {
+              transform: scale(1.05);
+            }
+            .svc-exp-card-active:hover .svc-exp-card-bg {
+              transform: scale(1);
+            }
+
+            /* Dark overlay gradient */
+            .svc-exp-card-overlay {
+              position: absolute;
+              inset: 0;
+              background: linear-gradient(180deg, rgba(20, 25, 28, 0.55) 0%, rgba(20, 25, 28, 0.92) 100%);
+              transition: background 0.5s ease;
+            }
+            .svc-exp-card-active .svc-exp-card-overlay {
+              background: linear-gradient(105deg, rgba(20, 25, 28, 0.96) 0%, rgba(20, 25, 28, 0.78) 45%, rgba(20, 25, 28, 0.35) 100%);
+            }
+
+            /* Collapsed label — vertical text on narrow strip */
+            .svc-exp-card-collapsed {
+              position: absolute;
+              inset: 0;
               display: flex;
               flex-direction: column;
-              border-right: 1px solid rgba(255, 255, 255, 0.1);
+              align-items: center;
+              justify-content: center;
+              gap: 18px;
+              z-index: 2;
+              transition: opacity 0.35s ease;
             }
-            .svc-tab-btn {
-              padding: 22px 28px;
-              background: none;
-              border: none;
-              border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-              color: rgba(255, 255, 255, 0.55);
-              font-size: 0.95rem;
+            .svc-exp-card-active .svc-exp-card-collapsed {
+              opacity: 0;
+              pointer-events: none;
+            }
+            .svc-exp-card-number {
+              font-size: 0.72rem;
               font-weight: 700;
-              text-align: left;
-              cursor: pointer;
-              transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-              font-family: var(--font-family);
-              position: relative;
+              color: rgba(255, 255, 255, 0.35);
+              letter-spacing: 0.15em;
             }
-            .svc-tab-btn:last-child { border-bottom: none; }
-            .svc-tab-btn:hover {
-              background: rgba(255, 255, 255, 0.04);
-              color: rgba(255, 255, 255, 0.95);
+            .svc-exp-card-label {
+              writing-mode: vertical-rl;
+              text-orientation: mixed;
+              transform: rotate(180deg);
+              font-size: 1.05rem;
+              font-weight: 800;
+              color: rgba(255, 255, 255, 0.85);
+              letter-spacing: 0.06em;
+              text-transform: uppercase;
+              white-space: nowrap;
+              transition: color 0.3s ease;
             }
-            .svc-tab-btn.svc-tab-active {
-              background: var(--color-primary);
-              color: #ffffff;
-              border-color: var(--color-primary);
-              border-left: 3px solid rgba(255,255,255,0.6);
+            .svc-exp-card:hover .svc-exp-card-label {
+              color: var(--color-primary);
             }
-            .svc-tab-panel {
-              padding: clamp(32px, 4vw, 48px);
-              overflow: hidden;
-              position: relative;
-              min-height: 340px;
+            .svc-exp-card-active:hover .svc-exp-card-label {
+              color: rgba(255, 255, 255, 0.85);
             }
-            .svc-tab-header {
+
+            /* Expanded content — fades in when active */
+            .svc-exp-card-content {
+              position: absolute;
+              inset: 0;
+              z-index: 3;
               display: flex;
               align-items: center;
-              justify-content: space-between;
-              margin-bottom: 20px;
+              padding: 40px 44px;
+              opacity: 0;
+              transition: opacity 0.45s ease 0.25s;
+              pointer-events: none;
             }
-            .svc-tab-title {
-              font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+            .svc-exp-card-active .svc-exp-card-content {
+              opacity: 1;
+              pointer-events: auto;
+            }
+            .svc-exp-card-inner {
+              max-width: 440px;
+              display: flex;
+              flex-direction: column;
+              gap: 14px;
+            }
+            .svc-exp-card-icon {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 64px;
+              height: 64px;
+              border-radius: 14px;
+              background: rgba(245, 124, 0, 0.12);
+              border: 1px solid rgba(245, 124, 0, 0.25);
+              margin-bottom: 4px;
+            }
+            .svc-exp-card-title {
+              font-size: clamp(1.5rem, 2.5vw, 2rem);
               font-weight: 800;
               color: #ffffff;
               margin: 0;
               text-transform: uppercase;
-              letter-spacing: 0.02em;
+              letter-spacing: -0.01em;
+              line-height: 1.1;
             }
-            .svc-mobile-icon-badge {
-              display: none;
+            .svc-exp-card-badge {
+              display: inline-block;
+              width: fit-content;
+              padding: 4px 12px;
+              border-radius: 999px;
+              background: rgba(245, 124, 0, 0.15);
+              border: 1px solid rgba(245, 124, 0, 0.3);
+              color: var(--color-primary);
+              font-size: 0.7rem;
+              font-weight: 700;
+              letter-spacing: 0.06em;
+              text-transform: uppercase;
             }
-            .svc-tab-desc {
-              color: rgba(255, 255, 255, 0.8);
-              font-size: 1rem;
-              line-height: 1.75;
-              margin: 0 0 24px 0;
+            .svc-exp-card-desc {
+              color: rgba(255, 255, 255, 0.75);
+              font-size: 0.95rem;
+              line-height: 1.65;
+              margin: 0;
             }
-            .svc-highlights-list {
+            .svc-exp-card-highlights {
               list-style: none;
               padding: 0;
-              margin: 0 0 32px 0;
+              margin: 4px 0 0 0;
               display: flex;
               flex-direction: column;
-              gap: 10px;
+              gap: 8px;
             }
-            .svc-cta-wrapper {
-              display: inline-block;
-            }
-
-            /* ── Phase transitions ── */
-            .svc-tab-content-wrap {
-              will-change: opacity, transform;
-            }
-
-            /* EXIT: extremely fast fade-out + slight left shift */
-            .svc-phase-exit .svc-stagger {
-              opacity: 0;
-              transform: translateX(-12px);
-              transition: opacity 0.12s ease-out, transform 0.12s ease-out;
-            }
-
-            /* ENTER: rapid staggered slide-in from right */
-            .svc-phase-enter .svc-stagger {
-              opacity: 0;
-              transform: translateX(20px);
-            }
-            .svc-phase-enter .svc-stagger-1 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.02s both; }
-            .svc-phase-enter .svc-stagger-2 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.06s both; }
-            .svc-phase-enter .svc-stagger-3 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.10s both; }
-            .svc-phase-enter .svc-stagger-4 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.14s both; }
-            .svc-phase-enter .svc-stagger-5 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.18s both; }
-            .svc-phase-enter .svc-stagger-6 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.22s both; }
-
-            /* VISIBLE: everything shown */
-            .svc-phase-visible .svc-stagger {
-              opacity: 1;
-              transform: translateX(0);
-            }
-
-            @keyframes svcReveal {
-              from {
-                opacity: 0;
-                transform: translateX(20px);
-              }
-              to {
-                opacity: 1;
-                transform: translateX(0);
-              }
-            }
-
-            .svc-tab-inner {
-              display: flex;
-              gap: 40px;
-              align-items: center;
-            }
-
-            /* Ultra-premium static icon area */
-            .svc-tab-icon-area {
-              flex-shrink: 0;
+            .svc-exp-card-highlights li {
               display: flex;
               align-items: center;
-              justify-content: center;
-              width: 180px;
-              min-height: 180px;
-              position: relative;
+              gap: 8px;
+              color: rgba(255, 255, 255, 0.7);
+              font-size: 0.85rem;
             }
-            .svc-tab-icon-ring {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              opacity: 0.9;
+            .svc-exp-card-cta {
+              margin-top: 8px;
             }
 
+            /* ── Mobile: vertical accordion ── */
             @media (max-width: 900px) {
-              .svc-tabs-layout {
-                grid-template-columns: 1fr;
-                border-radius: 16px;
-              }
-              .svc-tabs-sidebar {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-                background: rgba(10, 15, 26, 0.6);
-              }
-              .svc-tab-btn {
-                white-space: normal;
-                word-break: break-word;
-                text-align: center;
-                border-bottom: none;
-                border-right: 1px solid rgba(255, 255, 255, 0.08);
-                padding: 14px 6px;
-                font-size: clamp(0.75rem, 2.8vw, 0.88rem);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                min-height: 52px;
-              .svc-tab-btn.svc-tab-active {
-                border-left: none;
-                background: var(--color-primary);
-                color: #ffffff;
-                border-color: var(--color-primary);
-                font-weight: 800;
-                box-shadow: inset 0 -2px 0 rgba(0,0,0,0.2);
-              }
-              .svc-tab-panel {
-                padding: 24px 18px 28px 18px;
-                min-height: auto;
-              }
-              .svc-mobile-icon-badge {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 48px;
-                height: 48px;
-                border-radius: 12px;
-                background: rgba(245, 124, 0, 0.15);
-                border: 1px solid rgba(245, 124, 0, 0.3);
-                flex-shrink: 0;
-              }
-              .svc-tab-icon-area {
-                display: none !important;
-              }
-              .svc-tab-inner {
+              .svc-accordion-row {
                 flex-direction: column;
-                gap: 0;
+                height: auto;
+                gap: 10px;
               }
-              .svc-tab-desc {
-                font-size: 0.94rem;
-                line-height: 1.65;
-                margin-bottom: 20px;
+              .svc-exp-card {
+                min-width: 100%;
+                height: 72px;
+                flex: 0 0 72px;
+                border-radius: 14px;
               }
-              .svc-highlights-list {
-                margin-bottom: 24px;
-                gap: 12px;
+              .svc-exp-card-active {
+                flex: 0 0 auto;
+                height: auto;
+                min-height: 440px;
               }
-              .svc-cta-wrapper {
-                display: block;
-                width: 100%;
+              .svc-exp-card-collapsed {
+                flex-direction: row;
+                justify-content: flex-start;
+                padding: 0 24px;
+                gap: 14px;
               }
-              .svc-cta-wrapper a, .svc-cta-wrapper button {
-                width: 100% !important;
-                display: block !important;
-                text-align: center !important;
-                box-sizing: border-box !important;
+              .svc-exp-card-label {
+                writing-mode: horizontal-tb;
+                transform: none;
+                font-size: 1rem;
+              }
+              .svc-exp-card-content {
+                position: relative;
+                padding: 28px 24px;
+                align-items: flex-start;
+              }
+              .svc-exp-card-inner {
+                max-width: 100%;
               }
             }
           `}</style>
