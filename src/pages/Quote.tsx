@@ -72,7 +72,7 @@ export default function Quote() {
       {/* ── SECTION A: HERO ───────────────────────────────────── */}
       <section style={{
         position: 'relative',
-        backgroundImage: 'url(/hero-main.webp)',
+        backgroundImage: 'url(https://i.imgur.com/vtwyCmM.jpeg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         paddingTop: '140px',
