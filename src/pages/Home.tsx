@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import {
   Star,
   Phone,
+  CheckCircle2,
   Wrench,
   FileText,
 } from 'lucide-react';
@@ -29,6 +30,22 @@ export default function Home() {
 
   const heroBgRef = useRef<HTMLDivElement>(null);
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
+  const [displayedTab, setDisplayedTab] = useState(0);
+  const [tabPhase, setTabPhase] = useState<'visible' | 'exiting' | 'entering'>('visible');
+
+  const handleTabSwitch = (idx: number) => {
+    if (idx === activeTab || tabPhase !== 'visible') return;
+    setActiveTab(idx);
+    setTabPhase('exiting');
+    // Ultra-fast exit, followed by snappy enter
+    setTimeout(() => {
+      setDisplayedTab(idx);
+      setTabPhase('entering');
+      setTimeout(() => setTabPhase('visible'), 400);
+    }, 120);
+  };
+
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
@@ -453,7 +470,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── SECTION 5: SERVICES GRID ──── */}
+      {/* ── SECTION 5: VERTICAL TAB SERVICES (KLAS MEK STYLE) ──── */}
       <section
         id="tjanster"
         style={{
@@ -463,6 +480,7 @@ export default function Home() {
         }}
       >
         <div style={container}>
+          {/* Section Header */}
           <div style={{ marginBottom: '48px' }}>
             <ScrollReveal animation="blur-in">
               <h2 style={{
@@ -484,69 +502,308 @@ export default function Home() {
                 lineHeight: 1.7,
                 margin: 0,
               }}>
-                På Nahayo SvetsTeknik AB erbjuder vi professionella tjänster inom fältservice, maskinreparation och svetsning. Vi säkerställer hållbara och effektiva lösningar för företag och industrier.
+                På Nahayo SvetsTeknik ab erbjuder vi professionella tjänster inom fältservice, maskinreparation, svetsning, tillverkning och montage. Vi säkerställer hållbara och effektiva lösningar för företag och industrier.
               </p>
             </ScrollReveal>
           </div>
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '24px',
-          }}>
-            {services.map((svc, idx) => {
-              const iconComponents = [FieldServiceIcon, MachineRepairIcon, WeldingIcon];
-              const IconComp = iconComponents[idx % iconComponents.length];
-              return (
-                <ScrollReveal key={svc.slug} animation="fade-up" delay={idx * 120}>
-                  <article style={{
-                    height: '100%',
-                    minHeight: '280px',
-                    padding: '32px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    gap: '20px',
-                    background: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    borderRadius: '16px',
-                  }}>
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '64px',
-                      height: '64px',
-                      borderRadius: '14px',
-                      background: 'rgba(245, 124, 0, 0.12)',
-                      border: '1px solid rgba(245, 124, 0, 0.25)',
-                    }}>
-                      <IconComp size={34} color="var(--color-primary)" />
+          {/* Vertical Tabs + Content Panel */}
+          <ScrollReveal animation="fade-up" delay={150}>
+            <div className="svc-tabs-layout">
+              {/* Left: Vertical Tab Buttons */}
+              <div className="svc-tabs-sidebar">
+                {services.map((svc, idx) => (
+                  <button
+                    key={svc.slug}
+                    onClick={() => handleTabSwitch(idx)}
+                    className={`svc-tab-btn ${activeTab === idx ? 'svc-tab-active' : ''}`}
+                  >
+                    {svc.title}
+                  </button>
+                ))}
+              </div>
+
+              {/* Right: Active Service Content */}
+              <div className="svc-tab-panel">
+                {(() => {
+                  const iconComponents = [FieldServiceIcon, MachineRepairIcon, WeldingIcon];
+                  const IconComp = iconComponents[displayedTab % iconComponents.length];
+                  const svc = services[displayedTab];
+                  const phase = tabPhase === 'exiting' ? 'svc-phase-exit' : tabPhase === 'entering' ? 'svc-phase-enter' : 'svc-phase-visible';
+
+                  return (
+                    <div className={`svc-tab-content-wrap ${phase}`}>
+                      <div className="svc-tab-header">
+                        <h3 className="svc-stagger svc-stagger-1 svc-tab-title">
+                          {svc.title}
+                        </h3>
+                        <div className="svc-mobile-icon-badge svc-stagger svc-stagger-2">
+                          <IconComp size={36} color="var(--color-primary)" />
+                        </div>
+                      </div>
+
+                      <div className="svc-tab-inner">
+                        <div style={{ flex: 1 }}>
+                          <p className="svc-stagger svc-stagger-2 svc-tab-desc">
+                            {svc.heroText}
+                          </p>
+
+                          <ul className="svc-highlights-list">
+                            {svc.highlights.map((h, i) => (
+                              <li key={i} className={`svc-stagger svc-stagger-${i + 3}`} style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                color: 'rgba(255, 255, 255, 0.75)',
+                                fontSize: '0.92rem',
+                              }}>
+                                <CheckCircle2 size={16} color="var(--color-primary)" style={{ flexShrink: 0 }} />
+                                {h}
+                              </li>
+                            ))}
+                          </ul>
+
+                          <div className="svc-stagger svc-stagger-6 svc-cta-wrapper">
+                            <Button variant="primary" size="lg" href="/offert">
+                              Få offert
+                            </Button>
+                          </div>
+                        </div>
+
+                        <div className="svc-tab-icon-area svc-stagger svc-stagger-2">
+                          <div className="svc-tab-icon-ring">
+                            <IconComp size={160} color="var(--color-primary)" />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <h3 style={{
-                        color: '#ffffff',
-                        fontSize: '1.3rem',
-                        fontWeight: 800,
-                        margin: '0 0 12px',
-                        letterSpacing: '-0.01em',
-                      }}>
-                        {svc.title}
-                      </h3>
-                      <p style={{
-                        color: 'rgba(255, 255, 255, 0.68)',
-                        fontSize: '0.95rem',
-                        lineHeight: 1.65,
-                        margin: 0,
-                      }}>
-                        {svc.heroText}
-                      </p>
-                    </div>
-                  </article>
-                </ScrollReveal>
-              );
-            })}
-          </div>
+                  );
+                })()}
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <style>{`
+            .svc-tabs-layout {
+              display: grid;
+              grid-template-columns: 240px 1fr;
+              gap: 0;
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              border-radius: 16px;
+              overflow: hidden;
+              background: rgba(255, 255, 255, 0.03);
+            }
+            .svc-tabs-sidebar {
+              display: flex;
+              flex-direction: column;
+              border-right: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .svc-tab-btn {
+              padding: 22px 28px;
+              background: none;
+              border: none;
+              border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+              color: rgba(255, 255, 255, 0.55);
+              font-size: 0.95rem;
+              font-weight: 700;
+              text-align: left;
+              cursor: pointer;
+              transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+              font-family: var(--font-family);
+              position: relative;
+            }
+            .svc-tab-btn:last-child { border-bottom: none; }
+            .svc-tab-btn:hover {
+              background: rgba(255, 255, 255, 0.04);
+              color: rgba(255, 255, 255, 0.95);
+            }
+            .svc-tab-btn.svc-tab-active {
+              background: var(--color-primary);
+              color: #ffffff;
+              border-color: var(--color-primary);
+              border-left: 3px solid rgba(255,255,255,0.6);
+            }
+            .svc-tab-panel {
+              padding: clamp(32px, 4vw, 48px);
+              overflow: hidden;
+              position: relative;
+              min-height: 340px;
+            }
+            .svc-tab-header {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-bottom: 20px;
+            }
+            .svc-tab-title {
+              font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+              font-weight: 800;
+              color: #ffffff;
+              margin: 0;
+              text-transform: uppercase;
+              letter-spacing: 0.02em;
+            }
+            .svc-mobile-icon-badge {
+              display: none;
+            }
+            .svc-tab-desc {
+              color: rgba(255, 255, 255, 0.8);
+              font-size: 1rem;
+              line-height: 1.75;
+              margin: 0 0 24px 0;
+            }
+            .svc-highlights-list {
+              list-style: none;
+              padding: 0;
+              margin: 0 0 32px 0;
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+            }
+            .svc-cta-wrapper {
+              display: inline-block;
+            }
+
+            /* ── Phase transitions ── */
+            .svc-tab-content-wrap {
+              will-change: opacity, transform;
+            }
+
+            /* EXIT: extremely fast fade-out + slight left shift */
+            .svc-phase-exit .svc-stagger {
+              opacity: 0;
+              transform: translateX(-12px);
+              transition: opacity 0.12s ease-out, transform 0.12s ease-out;
+            }
+
+            /* ENTER: rapid staggered slide-in from right */
+            .svc-phase-enter .svc-stagger {
+              opacity: 0;
+              transform: translateX(20px);
+            }
+            .svc-phase-enter .svc-stagger-1 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.02s both; }
+            .svc-phase-enter .svc-stagger-2 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.06s both; }
+            .svc-phase-enter .svc-stagger-3 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.10s both; }
+            .svc-phase-enter .svc-stagger-4 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.14s both; }
+            .svc-phase-enter .svc-stagger-5 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.18s both; }
+            .svc-phase-enter .svc-stagger-6 { animation: svcReveal 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.22s both; }
+
+            /* VISIBLE: everything shown */
+            .svc-phase-visible .svc-stagger {
+              opacity: 1;
+              transform: translateX(0);
+            }
+
+            @keyframes svcReveal {
+              from {
+                opacity: 0;
+                transform: translateX(20px);
+              }
+              to {
+                opacity: 1;
+                transform: translateX(0);
+              }
+            }
+
+            .svc-tab-inner {
+              display: flex;
+              gap: 40px;
+              align-items: center;
+            }
+
+            /* Ultra-premium static icon area */
+            .svc-tab-icon-area {
+              flex-shrink: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 180px;
+              min-height: 180px;
+              position: relative;
+            }
+            .svc-tab-icon-ring {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              opacity: 0.9;
+            }
+
+            @media (max-width: 900px) {
+              .svc-tabs-layout {
+                grid-template-columns: 1fr;
+                border-radius: 16px;
+              }
+              .svc-tabs-sidebar {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+                background: rgba(10, 15, 26, 0.6);
+              }
+              .svc-tab-btn {
+                white-space: normal;
+                word-break: break-word;
+                text-align: center;
+                border-bottom: none;
+                border-right: 1px solid rgba(255, 255, 255, 0.08);
+                padding: 14px 6px;
+                font-size: clamp(0.75rem, 2.8vw, 0.88rem);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 52px;
+              .svc-tab-btn.svc-tab-active {
+                border-left: none;
+                background: var(--color-primary);
+                color: #ffffff;
+                border-color: var(--color-primary);
+                font-weight: 800;
+                box-shadow: inset 0 -2px 0 rgba(0,0,0,0.2);
+              }
+              .svc-tab-panel {
+                padding: 24px 18px 28px 18px;
+                min-height: auto;
+              }
+              .svc-mobile-icon-badge {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 48px;
+                height: 48px;
+                border-radius: 12px;
+                background: rgba(245, 124, 0, 0.15);
+                border: 1px solid rgba(245, 124, 0, 0.3);
+                flex-shrink: 0;
+              }
+              .svc-tab-icon-area {
+                display: none !important;
+              }
+              .svc-tab-inner {
+                flex-direction: column;
+                gap: 0;
+              }
+              .svc-tab-desc {
+                font-size: 0.94rem;
+                line-height: 1.65;
+                margin-bottom: 20px;
+              }
+              .svc-highlights-list {
+                margin-bottom: 24px;
+                gap: 12px;
+              }
+              .svc-cta-wrapper {
+                display: block;
+                width: 100%;
+              }
+              .svc-cta-wrapper a, .svc-cta-wrapper button {
+                width: 100% !important;
+                display: block !important;
+                text-align: center !important;
+                box-sizing: border-box !important;
+              }
+            }
+          `}</style>
         </div>
       </section>
 
