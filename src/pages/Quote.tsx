@@ -13,20 +13,20 @@ const container: React.CSSProperties = {
 
 const faqItems = [
   {
-    question: 'Kostar det något att begära en offert?',
-    answer: 'Nej, det är helt kostnadsfritt att begära offert och kalkyl för ditt svets- eller reparationsprojekt.',
+    question: 'Kostar platsbesöket något?',
+    answer: 'Nej, platsbesök och offert är alltid kostnadsfritt. Vi besöker din fastighet, mäter höjder, kollar markförutsättningar och tar fram ett tydligt prisförslag helt utan förbindelser.',
   },
   {
-    question: 'Hur snabbt kan ni påbörja ett svets- eller reparationsuppdrag?',
-    answer: 'Vid akuta fältstopp och maskinreparationer eftersträvar vi alltid snabbast möjliga utryckning. För större svetskonstruktioner och planerat underhåll går vi igenom tidsplanen tillsammans vid offertförfrågan.',
+    question: 'Hur snabbt kan ni påbörja grävarbetet?',
+    answer: 'Det styrs av projektets storlek samt vår nuvarande kapacitet och planering. Mindre jobb kan vi ofta påbörja inom två veckor, medan större grundläggningar planeras in med god framförhållning.',
   },
   {
-    question: 'Utför ni svetsning och reparationer på plats (fältservice)?',
-    answer: 'Ja, med våra välutrustade servicefordon utför vi licenssvetsning, felsökning och reparationsarbeten direkt ute på din anläggning eller arbetsplats i Gällivare med omnejd.',
+    question: 'Hur hanterar ni dolda hinder i marken, som berg?',
+    answer: 'Vid upptäckt av berg eller andra oväntade markhinder diskuterar vi alltid detta direkt med dig. Vi erbjuder bergssprängning eller hydraulisk spräckning som tillägg och håller kostnaderna transparenta.',
   },
   {
-    question: 'Vilka svetsmetoder och material arbetar ni med?',
-    answer: 'Vi har certifierad kompetens inom bland annat MIG/MAG och MMA (pinnsvetsning) samt arbetar professionellt med både stål och rostfritt stål.',
+    question: 'Fungerar ROT-avdrag för markarbeten?',
+    answer: 'Ja, för arbeten som utförs i nära anslutning till din befintliga bostad, till exempel källardränering eller anslutning av vatten och avlopp. Helt nya husgrunder ger däremot inte rätt till ROT-avdrag.',
   },
 ];
 
@@ -63,6 +63,7 @@ export default function Quote() {
   const [name, setName]       = useState('');
   const [email, setEmail]     = useState('');
   const [phone, setPhone]     = useState('');
+  const [service, setService] = useState('');
   const [message, setMessage] = useState('');
 
   return (
@@ -71,7 +72,7 @@ export default function Quote() {
       {/* ── SECTION A: HERO ───────────────────────────────────── */}
       <section style={{
         position: 'relative',
-        backgroundImage: 'url(https://i.imgur.com/vtwyCmM.jpeg)',
+        backgroundImage: 'url(/hero-main.webp)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         paddingTop: '140px',
@@ -182,6 +183,23 @@ export default function Quote() {
                   />
 
                   <label style={{ display: 'block', marginBottom: '4px', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-text-dark)' }}>
+                    Typ av tjänst
+                  </label>
+                  <select
+                    value={service}
+                    onChange={(e) => setService(e.target.value)}
+                    style={{ ...inputStyle, cursor: 'pointer' }}
+                    onFocus={focusInput}
+                    onBlur={blurInput}
+                  >
+                    <option value="">Välj tjänst...</option>
+                    <option value="renovering-ombyggnad">Renovering &amp; Ombyggnad</option>
+                    <option value="installation-service">Installation &amp; Service</option>
+                    <option value="specialistarbete-entreprenad">Specialistarbete &amp; Entreprenad</option>
+                    <option value="annat">Annat projekt</option>
+                  </select>
+
+                  <label style={{ display: 'block', marginBottom: '4px', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-text-dark)' }}>
                     Projektbeskrivning *
                   </label>
                   <textarea
@@ -214,7 +232,7 @@ export default function Quote() {
                       transition: 'transform 0.2s ease, opacity 0.2s ease',
                     }}
                   >
-                    <Send size={18} /> Skicka offertförfrågan
+                    <Send size={18} /> SKICKA OFFERTFÖRFRÅGAN
                   </button>
                 </form>
               </div>
@@ -249,11 +267,11 @@ export default function Quote() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
                     <ShieldCheck size={24} color="var(--color-primary)" />
                     <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-text-dark)' }}>
-                      Certifierad kvalitet
+                      ROT-avdrag på fakturan
                     </h3>
                   </div>
                   <p style={{ margin: 0, color: 'var(--color-gray-600)', fontSize: '0.9rem', lineHeight: 1.6 }}>
-                    Certifierade svetsare med höga krav på hållfasthet, precision och kvalitet.
+                    Vi drar av ROT-avdraget direkt på din faktura när arbetet är berättigat till detta.
                   </p>
                 </div>
 
