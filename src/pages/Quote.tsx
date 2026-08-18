@@ -13,20 +13,20 @@ const container: React.CSSProperties = {
 
 const faqItems = [
   {
-    question: 'Kostar platsbesöket något?',
-    answer: 'Nej, platsbesök och offert är alltid kostnadsfritt. Vi besöker din fastighet, mäter höjder, kollar markförutsättningar och tar fram ett tydligt prisförslag helt utan förbindelser.',
+    question: 'Kostar det något att få en offert?',
+    answer: 'Nej, offertförfrågan och inledande konsultation är alltid helt kostnadsfritt och utan förbindelser.',
   },
   {
-    question: 'Hur snabbt kan ni påbörja grävarbetet?',
-    answer: 'Det styrs av projektets storlek samt vår nuvarande kapacitet och planering. Mindre jobb kan vi ofta påbörja inom två veckor, medan större grundläggningar planeras in med god framförhållning.',
+    question: 'Hur snabbt kan ni påbörja ett svets- eller reparationsarbete?',
+    answer: 'Vid akuta driftstopp och haverier kan vi ofta rycka ut med kort varsel genom vår mobila fältservice. Planerade montage och reparationer schemaläggs efter era önskemål.',
   },
   {
-    question: 'Hur hanterar ni dolda hinder i marken, som berg?',
-    answer: 'Vid upptäckt av berg eller andra oväntade markhinder diskuterar vi alltid detta direkt med dig. Vi erbjuder bergssprängning eller hydraulisk spräckning som tillägg och håller kostnaderna transparenta.',
+    question: 'Vilka typer av svets- och maskinarbeten utför ni?',
+    answer: 'Vi utför certifierad licenssvetsning (MIG/MAG, MMA), mobil fältservice, förebyggande underhåll och reparationer av industrimaskiner och mekaniska konstruktioner i Gällivare med omnejd.',
   },
   {
-    question: 'Fungerar ROT-avdrag för markarbeten?',
-    answer: 'Ja, för arbeten som utförs i nära anslutning till din befintliga bostad, till exempel källardränering eller anslutning av vatten och avlopp. Helt nya husgrunder ger däremot inte rätt till ROT-avdrag.',
+    question: 'Arbetar ni både mot företag och industrier?',
+    answer: 'Ja, vi vänder oss främst till industrier, entreprenadföretag och verksamheter med behov av kvalificerad svetsteknik och mekanisk service.',
   },
 ];
 
@@ -193,10 +193,10 @@ export default function Quote() {
                     onBlur={blurInput}
                   >
                     <option value="">Välj tjänst...</option>
-                    <option value="renovering-ombyggnad">Renovering &amp; Ombyggnad</option>
-                    <option value="installation-service">Installation &amp; Service</option>
-                    <option value="specialistarbete-entreprenad">Specialistarbete &amp; Entreprenad</option>
-                    <option value="annat">Annat projekt</option>
+                    <option value="faltservice-akutinsatser">Fältservice &amp; Akutinsatser</option>
+                    <option value="maskinreparation-service">Maskinreparation &amp; Underhåll</option>
+                    <option value="svetsning-svetsteknik">Svetsning &amp; Licenssvetsning</option>
+                    <option value="annat">Annat uppdrag</option>
                   </select>
 
                   <label style={{ display: 'block', marginBottom: '4px', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-text-dark)' }}>
@@ -267,11 +267,11 @@ export default function Quote() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
                     <ShieldCheck size={24} color="var(--color-primary)" />
                     <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-text-dark)' }}>
-                      ROT-avdrag på fakturan
+                      Certifierad kompetens
                     </h3>
                   </div>
                   <p style={{ margin: 0, color: 'var(--color-gray-600)', fontSize: '0.9rem', lineHeight: 1.6 }}>
-                    Vi drar av ROT-avdraget direkt på din faktura när arbetet är berättigat till detta.
+                    Licensierade svetsare med hög yrkesskicklighet och noggrannhet i varje moment.
                   </p>
                 </div>
 

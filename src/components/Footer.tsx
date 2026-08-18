@@ -124,13 +124,13 @@ export default function Footer() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.95rem' }}>
 
               <a
-                href="mailto:nahayosvetsteknik@outlook.com"
+                href="mailto:info@nahyosvetsteknik.se"
                 className="footer-contact-item"
               >
                 <div className="footer-contact-icon">
                   <Mail size={16} strokeWidth={2} />
                 </div>
-                <span>nahayosvetsteknik@outlook.com</span>
+                <span>info@nahyosvetsteknik.se</span>
               </a>
 
               <a

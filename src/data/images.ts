@@ -100,10 +100,10 @@ const images: SiteImages = {
   },
 
   gallery: [
-    { url: '/portfolio-facade.webp', alt: 'Fasad & Byggnation' },
-    { url: '/portfolio-extension.webp', alt: 'Industrimontage & Ombyggnad' },
-    { url: '/gallery-deck.webp', alt: 'Precision i trä & snickeri' },
-    { url: '/portfolio-roofing.webp', alt: 'Tak & Konstruktion' },
+    { url: '/portfolio-facade.webp', alt: 'Kvalificerad svetsteknik' },
+    { url: '/portfolio-extension.webp', alt: 'Industrimontage & maskinreparation' },
+    { url: '/gallery-deck.webp', alt: 'Hållbara svetsfogar och precision' },
+    { url: '/portfolio-roofing.webp', alt: 'Stålkonstruktioner & fältservice' },
   ],
 
   grid: ['/grid-1.jpg', '/grid-2.jpg', '/grid-3.jpg', '/grid-4.jpg'],

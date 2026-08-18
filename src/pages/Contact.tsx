@@ -13,20 +13,20 @@ const container: React.CSSProperties = {
 
 const faqItems = [
   {
-    question: 'Arbetar ni med ROT-avdrag?',
-    answer: 'Ja, vi hanterar ROT-avdrag och ser till att faktureringen sker korrekt. Arbeten som dränering och inkoppling av VA till befintliga hus berättigar till avdraget.',
+    question: 'Vilka typer av svets- och montagearbeten utför ni?',
+    answer: 'Vi är specialiserade på certifierad licenssvetsning (MIG/MAG, MMA), industrimontage, mobil fältservice och maskinreparationer för industri och företag.',
   },
   {
-    question: 'Hur lång tid tar det att få ett prisförslag?',
-    answer: 'Vi brukar återkomma med en offert inom 1–3 arbetsdagar efter platsbesöket, beroende på projektets omfattning.',
+    question: 'Hur snabbt kan ni rycka ut vid akuta haverier?',
+    answer: 'Vi erbjuder mobil fältservice och prioriterar akuta ärenden i Gällivare med omnejd för att minimera kostsamma driftstopp i er verksamhet.',
   },
   {
-    question: 'Tar ni på er jobb utanför Gällivare?',
-    answer: 'Gällivare är vår utgångspunkt, men vi kan ta uppdrag i närliggande områden och hela regionen vid större projekt. Hör av dig så berättar vi mer.',
+    question: 'Tar ni på er uppdrag utanför Gällivare?',
+    answer: 'Gällivare är vår bas, men med våra välutrustade servicefordon utför vi uppdrag och fältservice i närliggande orter och över hela regionen.',
   },
   {
-    question: 'Kan jag boka ett platsbesök direkt?',
-    answer: 'Absolut! Skicka ett meddelande via formuläret eller ring oss, så bokar vi in ett kostnadsfritt platsbesök som passar dig.',
+    question: 'Hur snabbt kan jag få ett prisförslag eller offert?',
+    answer: 'Vi återkommer vanligtvis med en kostnadsfri offert inom 24 timmar efter att vi har gått igenom era önskemål och förutsättningar.',
   },
 ];
 
@@ -198,12 +198,12 @@ export default function Contact() {
                       E-post
                     </p>
                     <a
-                      href="mailto:nahayosvetsteknik@outlook.com"
+                      href="mailto:info@nahyosvetsteknik.se"
                       style={{ color: 'var(--color-gray-600)', fontSize: '0.95rem', textDecoration: 'none', lineHeight: 1.5, transition: 'color 0.2s ease' }}
                       onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-primary)')}
                       onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-gray-600)')}
                     >
-                      nahayosvetsteknik@outlook.com
+                      info@nahyosvetsteknik.se
                     </a>
                   </div>
                 </div>
