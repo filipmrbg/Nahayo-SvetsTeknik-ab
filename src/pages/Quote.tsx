@@ -204,7 +204,7 @@ export default function Quote() {
                   </label>
                   <textarea
                     rows={5}
-                    placeholder="Beskriv ditt projekt så detaljerat du kan (t.ex. yta i kvm, adress, önskad starttid)..."
+                    placeholder="Beskriv ditt projekt eller reparationsbehov (t.ex. typ av arbete, maskin/anläggning, adress, önskad starttid)..."
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     style={{ ...inputStyle, resize: 'vertical', marginBottom: '24px' }}

@@ -152,8 +152,8 @@ const images: SiteImages = {
       category: 'Industriservice',
     },
     {
-      image: { url: '/project-3.jpg', alt: 'Verkstadsinstallationer & Entreprenad' },
-      title: 'Verkstadsinstallationer',
+      image: { url: '/project-3.jpg', alt: 'Mobil Fältservice & Specialmontage' },
+      title: 'Mobil Fältservice & Montage',
       category: 'Specialistuppdrag',
     },
   ],

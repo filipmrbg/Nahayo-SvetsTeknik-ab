@@ -55,7 +55,7 @@ export default function ServicesOverview() {
                 margin: '20px auto 0',
                 lineHeight: 1.65,
               }}>
-                Kompletta yrkes- och entreprenadtjänster för industri, ombyggnad och tekniska installationer.
+                Kompletta yrkestjänster inom licenssvetsning, mobil fältservice och maskinreparationer.
               </p>
             </ScrollReveal>
           </div>

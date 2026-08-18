@@ -206,7 +206,7 @@ export default function Home() {
             {[
               { icon: Phone, title: 'Kontakta oss', desc: 'Beskriv ditt behov, oavsett om det gäller fältservice, maskinreparation eller svetsarbeten.' },
               { icon: FileText, title: 'Planering och offert', desc: 'Vi går igenom specifikationerna och lämnar en tydlig offert anpassad för ditt uppdrag.' },
-              { icon: Wrench, title: 'Utförande och leverans', desc: 'Våra svetsare och mekaniker utför arbetet med högsta noggrannhet i fält eller i verkstaden.' },
+              { icon: Wrench, title: 'Utförande och leverans', desc: 'Våra svetsare och mekaniker utför arbetet med högsta noggrannhet direkt ute på plats hos er.' },
             ].map(({ icon: Icon, title, desc }, i) => (
               <div key={i} style={{ display: 'contents' }}>
                 <ScrollReveal animation="scale-in" easing="spring" delay={i * 150}>
@@ -321,7 +321,7 @@ export default function Home() {
                   <img
                     className="about-mosaic-image"
                     src="/grid-4.jpg"
-                    alt="Maskinreparation och grävskopa"
+                    alt="Maskinreparation och underhåll"
                     style={{
                       width: '100%',
                       height: '320px',
@@ -368,7 +368,7 @@ export default function Home() {
                   lineHeight: 1.75,
                   margin: '0 0 16px 0',
                 }}>
-                  Hos Nahayo SvetsTeknik ab får du professionell hjälp med svetsning, maskinreparationer och industrimontage. Vi arbetar med allt från akuta utryckningar i fält till skräddarsydda tillverkningar i verkstaden.
+                  Hos Nahayo SvetsTeknik ab får du professionell hjälp med svetsning, maskinreparationer och industrimontage. Vi arbetar med allt från akuta utryckningar i fält till planerade montage och reparationer direkt på plats.
                 </p>
                 <p style={{
                   color: 'rgba(255, 255, 255, 0.78)',
@@ -926,7 +926,7 @@ export default function Home() {
             {[
               {
                 name: 'Johan Kvist',
-                location: 'Stockholm',
+                location: 'Gällivare',
                 text: 'Utmärkt utfört arbete och fantastisk precision. Montörerna höll tidsplanen och kommunikationen var i absolut toppklass från start till mål. Kan varmt rekommenderas!',
                 stars: 5,
                 date: 'för 2 veckor sedan',
@@ -935,7 +935,7 @@ export default function Home() {
               },
               {
                 name: 'Karin Wallin',
-                location: 'Nacka',
+                location: 'Kiruna',
                 text: 'Vi anlitade teamet för ett mer komplext specialistarbete. Mycket kunniga yrkesmän som löste alla utmaningar på ett supersnyggt sätt.',
                 stars: 5,
                 date: 'för en månad sedan',
@@ -944,7 +944,7 @@ export default function Home() {
               },
               {
                 name: 'Anders Gustavsson',
-                location: 'Täby',
+                location: 'Malmfälten',
                 text: 'Proffsigt utförd installation. Tydlig offert utan konstigheter och arbetet genomfördes med högsta noggrannhet. Kommer definitivt anlita dem igen.',
                 stars: 5,
                 date: 'för 2 månader sedan',

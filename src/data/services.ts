@@ -91,7 +91,7 @@ export const services: ServiceItem[] = [
     sections: [
       {
         heading: 'Professionell maskinreparation och underhåll',
-        text: 'När maskiner och verkstadsanläggningar krånglar innebär det kostsamma hinder. Vi hanterar allt från mindre justeringar och reservdelsbyten till omfattande maskinöverhalningar.',
+        text: 'När maskiner och industrianläggningar krånglar innebär det kostsamma hinder. Vi hanterar allt från mindre justeringar och reservdelsbyten till omfattande maskinöverhalningar på plats.',
         bullets: [
           'Maskinrenovering och Överhalning – återställer maskinernas ursprungliga prestanda',
           'Förebyggande Service – regelbundna inspektioner som förhindrar oväntade haverier',
@@ -117,7 +117,7 @@ export const services: ServiceItem[] = [
       },
       {
         question: 'Vilka typer av maskiner reparerar ni?',
-        answer: 'Vi arbetar med allt från industrimaskiner och produktionsutrustning till tunga verkstads- och entreprenadmaskiner.',
+        answer: 'Vi arbetar med allt från industrimaskiner och produktionsutrustning till tunga industrimaskiner, mobila enheter och anläggningar.',
       },
     ],
   },
@@ -151,8 +151,8 @@ export const services: ServiceItem[] = [
             text: 'Alla svetsförband utförs med noggrannhet och precision för maximal säkerhet.',
           },
           {
-            subheading: 'Mobil och Verkstadssvets',
-            text: 'Vi utför svetsarbeten både i vår egen verkstad och ute hos kund.',
+            subheading: 'Mobil Fältsvetsning',
+            text: 'Vi utför kvalificerade svetsarbeten mobilt och direkt på plats ute hos kund.',
           },
         ],
       },

@@ -169,7 +169,7 @@ export default function About() {
                   lineHeight: 1.75,
                   margin: '0 0 28px 0',
                 }}>
-                  Vårt mål är alltid att leverera hållfasta konstruktioner och säkerställa att dina maskiner fungerar med maximal driftsäkerhet. Med rätt kompetens och välutrustade servicefordon löser vi uppdrag i fält och i verkstad.
+                  Vårt mål är alltid att leverera hållfasta konstruktioner och säkerställa att dina maskiner fungerar med maximal driftsäkerhet. Med rätt kompetens och välutrustade servicefordon löser vi uppdrag mobilt direkt på plats i fält.
                 </p>
                 <Button variant="primary" size="lg" href="/kontakt">
                   Kontakta oss

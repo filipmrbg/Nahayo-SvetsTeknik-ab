@@ -10,7 +10,7 @@ interface Props {
 
 const defaultHeading = 'Begär en kostnadsfri offert';
 const defaultCheckItems = [
-  'Kostnadsfritt hembesök och offert',
+  'Kostnadsfri rådgivning och offert',
   'Snabb återkoppling inom 24 timmar',
   'Tryggt utförande & fasta priser',
 ];

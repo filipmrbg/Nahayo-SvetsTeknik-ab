@@ -177,7 +177,7 @@ function QuoteForm({ serviceTitle }: { serviceTitle: string }) {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem', color: '#64748b' }}>
               <ShieldCheck size={14} style={{ color: 'var(--color-primary)', flexShrink: 0 }} />
-              <span>Kostnadsfritt hembesök utan förpliktelser</span>
+              <span>Kostnadsfri rådgivning och offert</span>
             </div>
           </div>
         </form>
@@ -192,9 +192,9 @@ export default function ServicePage() {
   const normalizedSlug = useMemo(() => {
     if (!slug) return '';
     const clean = slug.toLowerCase().trim().replace(/-/g, '').replace(/_/g, '');
-    if (clean.includes('mark') || clean.includes('schakt')) return 'markarbete';
-    if (clean.includes('dran') || clean.includes('drän') || clean.includes('fukt')) return 'dranering';
-    if (clean.includes('betong') || clean.includes('grund')) return 'betong';
+    if (clean.includes('falt') || clean.includes('akut')) return 'faltservice-akutjobb';
+    if (clean.includes('maskin') || clean.includes('repar')) return 'maskinreparation-service';
+    if (clean.includes('svets')) return 'svetsning-svetsteknik';
     return clean;
   }, [slug]);
 
@@ -556,7 +556,7 @@ export default function ServicePage() {
               Se våra övriga tjänster
             </h2>
             <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.98rem', margin: 0 }}>
-              Vi erbjuder kompletta entreprenadlösningar för hela ditt projekt.
+              Vi erbjuder kompletta och flexibla servicelösningar för hela ditt projekt.
             </p>
           </div>
 

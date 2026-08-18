@@ -123,7 +123,7 @@ export default function Contact() {
                 Så når du oss
               </h2>
               <p style={{ color: 'var(--color-gray-600)', fontSize: '1rem', lineHeight: 1.8, margin: 0 }}>
-                Du kan nå oss via formuläret, telefon eller e-post. Oavsett om det gäller ett mindre servicejobb eller en omfattande entreprenad hjälper vi dig gärna.
+                Du kan nå oss via formuläret, telefon eller e-post. Oavsett om det gäller ett mindre servicejobb eller ett större industriprojekt hjälper vi dig gärna.
               </p>
 
               <div style={{ marginTop: '40px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
