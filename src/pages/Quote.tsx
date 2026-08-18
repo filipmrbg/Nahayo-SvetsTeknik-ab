@@ -57,8 +57,8 @@ function blurInput(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | 
 
 export default function Quote() {
   usePageTitle(
-    'Begär Offert | Nahayo SvetsTeknik ab',
-    'Fyll i formuläret för en kostnadsfri offert från Nahayo SvetsTeknik ab i Gällivare.'
+    'Begär Offert | Nahayo SvetsTeknik AB',
+    'Fyll i formuläret för en kostnadsfri offert från Nahayo SvetsTeknik AB i Gällivare.'
   );
   const [name, setName]       = useState('');
   const [email, setEmail]     = useState('');

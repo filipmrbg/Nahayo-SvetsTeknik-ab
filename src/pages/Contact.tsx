@@ -57,8 +57,8 @@ function blurInput(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) 
 
 export default function Contact() {
   usePageTitle(
-    'Kontakta Oss | Nahayo SvetsTeknik ab',
-    'Hör av dig till Nahayo SvetsTeknik ab i Gällivare för frågor, offert och rådgivning gällande svetsning och svetsteknik.'
+    'Kontakta Oss | Nahayo SvetsTeknik AB',
+    'Hör av dig till Nahayo SvetsTeknik AB i Gällivare för frågor, offert och rådgivning gällande svetsning och svetsteknik.'
   );
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');

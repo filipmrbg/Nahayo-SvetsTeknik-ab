@@ -207,7 +207,7 @@ export default function ServicePage() {
   }, [slug, normalizedSlug]);
 
   usePageTitle(
-    `${service.title} | Nahayo SvetsTeknik ab`,
+    `${service.title} | Nahayo SvetsTeknik AB`,
     service.heroText
   );
 

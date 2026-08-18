@@ -188,7 +188,7 @@ export default function SocialBanner() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Ett inlägg delat av Nahayo SvetsTeknik ab (@nahayo_svetsteknik)
+                  Ett inlägg delat av Nahayo SvetsTeknik AB (@nahayo_svetsteknik)
                 </a>
               </p>
             </div>
@@ -280,7 +280,7 @@ export default function SocialBanner() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Ett inlägg delat av Nahayo SvetsTeknik ab (@nahayo_svetsteknik)
+                  Ett inlägg delat av Nahayo SvetsTeknik AB (@nahayo_svetsteknik)
                 </a>
               </p>
             </div>

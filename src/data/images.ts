@@ -74,13 +74,13 @@ const images: SiteImages = {
   logo: {
     url: '/logo-nahayo.jpg',
     transparentUrl: '/logo-transparent.png',
-    alt: 'Nahayo SvetsTeknik ab logotyp',
+    alt: 'Nahayo SvetsTeknik AB logotyp',
   },
 
   hero: {
     background: {
       url: '/welder-cta-bg.png',
-      alt: 'Nahayo SvetsTeknik ab licenssvetsning och industriservice',
+      alt: 'Nahayo SvetsTeknik AB licenssvetsning och industriservice',
     },
   },
 
@@ -122,7 +122,7 @@ const images: SiteImages = {
   about: {
     hero: {
       url: '/logo-nahayo.jpg',
-      alt: 'Nahayo SvetsTeknik ab logotyp',
+      alt: 'Nahayo SvetsTeknik AB logotyp',
     },
     teamMember: {
       url: '/logo-nahayo.jpg',

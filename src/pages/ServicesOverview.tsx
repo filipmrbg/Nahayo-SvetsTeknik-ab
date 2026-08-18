@@ -12,8 +12,8 @@ const container: React.CSSProperties = {
 
 export default function ServicesOverview() {
   usePageTitle(
-    'Våra Tjänster | Nahayo SvetsTeknik ab',
-    'Utforska våra tjänster inom svetsning, licenssvetsning och industrisvetsning hos Nahayo SvetsTeknik ab i Gällivare.'
+    'Våra Tjänster | Nahayo SvetsTeknik AB',
+    'Utforska våra tjänster inom svetsning, licenssvetsning och industrisvetsning hos Nahayo SvetsTeknik AB i Gällivare.'
   );
 
   return (

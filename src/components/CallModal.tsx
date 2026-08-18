@@ -10,7 +10,7 @@ export default function CallModal({ isOpen, onClose }: CallModalProps) {
 
   const contacts = [
     {
-      name: 'Nahayo SvetsTeknik ab',
+      name: 'Nahayo SvetsTeknik AB',
       role: 'Direktkontakt & Offert',
       phone: '073-724 86 67',
       tel: 'tel:0737248667',

@@ -24,7 +24,7 @@ const container: React.CSSProperties = {
 
 export default function Home() {
   usePageTitle(
-    'Nahayo SvetsTeknik ab | Licenssvetsning, Fältservice och Maskinreparation',
+    'Nahayo SvetsTeknik AB | Licenssvetsning, Fältservice och Maskinreparation',
     'Professionella tjänster inom svetsning, mobil fältservice, maskinreparation och industrimontage i Gällivare med omnejd.'
   );
 
@@ -368,7 +368,7 @@ export default function Home() {
                   lineHeight: 1.75,
                   margin: '0 0 16px 0',
                 }}>
-                  Hos Nahayo SvetsTeknik ab får du professionell hjälp med svetsning, maskinreparationer och industrimontage. Vi arbetar med allt från akuta utryckningar i fält till planerade montage och reparationer direkt på plats.
+                  Hos Nahayo SvetsTeknik AB får du professionell hjälp med svetsning, maskinreparationer och industrimontage. Vi arbetar med allt från akuta utryckningar i fält till planerade montage och reparationer direkt på plats.
                 </p>
                 <p style={{
                   color: 'rgba(255, 255, 255, 0.78)',
@@ -502,7 +502,7 @@ export default function Home() {
                 lineHeight: 1.7,
                 margin: 0,
               }}>
-                På Nahayo SvetsTeknik ab erbjuder vi professionella tjänster inom fältservice, maskinreparation, svetsning, tillverkning och montage. Vi säkerställer hållbara och effektiva lösningar för företag och industrier.
+                På Nahayo SvetsTeknik AB erbjuder vi professionella tjänster inom fältservice, maskinreparation, svetsning, tillverkning och montage. Vi säkerställer hållbara och effektiva lösningar för företag och industrier.
               </p>
             </ScrollReveal>
           </div>

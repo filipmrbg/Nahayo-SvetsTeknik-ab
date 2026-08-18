@@ -48,8 +48,8 @@ const teamMembers = [
 
 export default function About() {
   usePageTitle(
-    'Om oss | Nahayo SvetsTeknik ab',
-    'Läs mer om Nahayo SvetsTeknik ab i Gällivare. Grundat av Orly med fokuserad expertis inom licenssvetsning, fältservice och maskinreparationer.'
+    'Om oss | Nahayo SvetsTeknik AB',
+    'Läs mer om Nahayo SvetsTeknik AB i Gällivare. Grundat av Orly med fokuserad expertis inom licenssvetsning, fältservice och maskinreparationer.'
   );
 
   return (
@@ -86,7 +86,7 @@ export default function About() {
               margin: '0 0 16px 0',
               lineHeight: 1.15,
             }}>
-              Om Nahayo SvetsTeknik ab
+              Om Nahayo SvetsTeknik AB
             </h1>
           </ScrollReveal>
           <ScrollReveal animation="fade-up" delay={150}>
@@ -161,7 +161,7 @@ export default function About() {
                   lineHeight: 1.75,
                   margin: '0 0 16px 0',
                 }}>
-                  Nahayo SvetsTeknik ab drivs av Orly och är ett etablerat företag med säte i Gällivare. Vi erbjuder licenssvetsning, mobil fältservice och reparationer av industrimaskiner och utrustning.
+                  Nahayo SvetsTeknik AB drivs av Orly och är ett etablerat företag med säte i Gällivare. Vi erbjuder licenssvetsning, mobil fältservice och reparationer av industrimaskiner och utrustning.
                 </p>
                 <p style={{
                   color: 'var(--color-gray-600)',
@@ -301,7 +301,7 @@ export default function About() {
                 fontSize: 'clamp(1.8rem, 3vw, 2.4rem)',
                 margin: 0,
               }}>
-                Varför välja Nahayo SvetsTeknik ab
+                Varför välja Nahayo SvetsTeknik AB
               </h2>
             </ScrollReveal>
           </div>

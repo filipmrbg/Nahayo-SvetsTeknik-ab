@@ -171,7 +171,7 @@ export default function Footer() {
           }}
         >
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center', color: 'var(--color-gray-600)', fontSize: '0.875rem', flexWrap: 'wrap' }}>
-            <span>© 2026 - Nahayo SvetsTeknik ab</span>
+            <span>© 2026 - Nahayo SvetsTeknik AB</span>
           </div>
         </div>
       </div>
