@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Phone, MapPin, Mail } from 'lucide-react';
+import { Phone, MapPin, Mail, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import ScrollReveal from '../components/ScrollReveal';
 import FAQAccordion from '../components/FAQAccordion';
 import CTABanner from '../components/CTABanner';
@@ -64,6 +64,41 @@ export default function Contact() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus('loading');
+    setErrorMsg('');
+
+    try {
+      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-contact-email`;
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, phone, message }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || data.error) {
+        throw new Error(data.error || 'Något gick fel.');
+      }
+
+      setStatus('success');
+      setName('');
+      setEmail('');
+      setPhone('');
+      setMessage('');
+    } catch (err) {
+      setStatus('error');
+      setErrorMsg(err instanceof Error ? err.message : 'Ett oväntat fel uppstod.');
+    }
+  }
 
   return (
     <main style={{ fontFamily: 'var(--font-family)' }}>
@@ -227,7 +262,41 @@ export default function Contact() {
                 borderRadius: 'var(--border-radius-lg)',
                 boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
               }}>
-                <form onSubmit={e => e.preventDefault()}>
+                <form onSubmit={handleSubmit}>
+                  {status === 'success' && (
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '16px',
+                      background: 'rgba(34,197,94,0.1)',
+                      border: '1px solid rgba(34,197,94,0.3)',
+                      borderRadius: '12px',
+                      marginBottom: '20px',
+                    }}>
+                      <CheckCircle size={22} color="#16a34a" style={{ flexShrink: 0 }} />
+                      <p style={{ margin: 0, fontSize: '0.9rem', color: '#15803d', fontWeight: 600 }}>
+                        Tack! Ditt meddelande har skickats. Vi återkommer inom 24 timmar.
+                      </p>
+                    </div>
+                  )}
+                  {status === 'error' && (
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '16px',
+                      background: 'rgba(239,68,68,0.1)',
+                      border: '1px solid rgba(239,68,68,0.3)',
+                      borderRadius: '12px',
+                      marginBottom: '20px',
+                    }}>
+                      <AlertCircle size={22} color="#dc2626" style={{ flexShrink: 0 }} />
+                      <p style={{ margin: 0, fontSize: '0.9rem', color: '#b91c1c', fontWeight: 600 }}>
+                        {errorMsg || 'Något gick fel. Försök igen eller ring oss direkt.'}
+                      </p>
+                    </div>
+                  )}
                   <input
                     type="text"
                     placeholder="Ditt namn *"
@@ -268,6 +337,7 @@ export default function Contact() {
                   />
                   <button
                     type="submit"
+                    disabled={status === 'loading'}
                     style={{
                       width: '100%',
                       padding: '14px',
@@ -278,14 +348,21 @@ export default function Contact() {
                       fontSize: '0.95rem',
                       border: 'none',
                       borderRadius: 'var(--border-radius-pill)',
-                      cursor: 'pointer',
+                      cursor: status === 'loading' ? 'not-allowed' : 'pointer',
+                      opacity: status === 'loading' ? 0.7 : 1,
                       transition: 'all 0.3s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '8px',
                     }}
                     onMouseEnter={e => {
-                      const el = e.currentTarget as HTMLElement;
-                      el.style.background = 'var(--color-primary-hover)';
-                      el.style.transform = 'translateY(-2px)';
-                      el.style.boxShadow = '0 8px 24px rgba(217,119,6,0.35)';
+                      if (status !== 'loading') {
+                        const el = e.currentTarget as HTMLElement;
+                        el.style.background = 'var(--color-primary-hover)';
+                        el.style.transform = 'translateY(-2px)';
+                        el.style.boxShadow = '0 8px 24px rgba(217,119,6,0.35)';
+                      }
                     }}
                     onMouseLeave={e => {
                       const el = e.currentTarget as HTMLElement;
@@ -294,7 +371,13 @@ export default function Contact() {
                       el.style.boxShadow = 'none';
                     }}
                   >
-                    Skicka meddelande
+                    {status === 'loading' ? (
+                      <>
+                        <Loader2 size={18} className="spin" /> Skickar...
+                      </>
+                    ) : (
+                      'Skicka meddelande'
+                    )}
                   </button>
                 </form>
               </div>
@@ -323,6 +406,8 @@ export default function Contact() {
         @media (max-width: 768px) {
           .contact-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
         }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spin { animation: spin 1s linear infinite; }
       `}</style>
     </main>
   );

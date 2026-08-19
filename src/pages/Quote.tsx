@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShieldCheck, Clock, Award, Send } from 'lucide-react';
+import { ShieldCheck, Clock, Award, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import ScrollReveal from '../components/ScrollReveal';
 import FAQAccordion from '../components/FAQAccordion';
 import CTABanner from '../components/CTABanner';
@@ -65,6 +65,46 @@ export default function Quote() {
   const [phone, setPhone]     = useState('');
   const [service, setService] = useState('');
   const [message, setMessage] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus('loading');
+    setErrorMsg('');
+
+    const fullMessage = service
+      ? `Tjänst: ${service}\n\n${message}`
+      : message;
+
+    try {
+      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-contact-email`;
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, phone, message: fullMessage }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || data.error) {
+        throw new Error(data.error || 'Något gick fel.');
+      }
+
+      setStatus('success');
+      setName('');
+      setEmail('');
+      setPhone('');
+      setService('');
+      setMessage('');
+    } catch (err) {
+      setStatus('error');
+      setErrorMsg(err instanceof Error ? err.message : 'Ett oväntat fel uppstod.');
+    }
+  }
 
   return (
     <main style={{ fontFamily: 'var(--font-family)' }}>
@@ -139,7 +179,41 @@ export default function Quote() {
                   Fyll i dina uppgifter
                 </h2>
 
-                <form onSubmit={(e) => e.preventDefault()}>
+                <form onSubmit={handleSubmit}>
+                  {status === 'success' && (
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '16px',
+                      background: 'rgba(34,197,94,0.1)',
+                      border: '1px solid rgba(34,197,94,0.3)',
+                      borderRadius: '12px',
+                      marginBottom: '20px',
+                    }}>
+                      <CheckCircle size={22} color="#16a34a" style={{ flexShrink: 0 }} />
+                      <p style={{ margin: 0, fontSize: '0.9rem', color: '#15803d', fontWeight: 600 }}>
+                        Tack! Din offertförfrågan har skickats. Vi återkommer inom 24 timmar.
+                      </p>
+                    </div>
+                  )}
+                  {status === 'error' && (
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '16px',
+                      background: 'rgba(239,68,68,0.1)',
+                      border: '1px solid rgba(239,68,68,0.3)',
+                      borderRadius: '12px',
+                      marginBottom: '20px',
+                    }}>
+                      <AlertCircle size={22} color="#dc2626" style={{ flexShrink: 0 }} />
+                      <p style={{ margin: 0, fontSize: '0.9rem', color: '#b91c1c', fontWeight: 600 }}>
+                        {errorMsg || 'Något gick fel. Försök igen eller ring oss direkt.'}
+                      </p>
+                    </div>
+                  )}
                   <label style={{ display: 'block', marginBottom: '4px', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-text-dark)' }}>
                     Namn *
                   </label>
@@ -215,6 +289,7 @@ export default function Quote() {
 
                   <button
                     type="submit"
+                    disabled={status === 'loading'}
                     style={{
                       width: '100%',
                       padding: '16px',
@@ -224,7 +299,8 @@ export default function Quote() {
                       borderRadius: '12px',
                       fontWeight: 700,
                       fontSize: '1rem',
-                      cursor: 'pointer',
+                      cursor: status === 'loading' ? 'not-allowed' : 'pointer',
+                      opacity: status === 'loading' ? 0.7 : 1,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -232,7 +308,15 @@ export default function Quote() {
                       transition: 'transform 0.2s ease, opacity 0.2s ease',
                     }}
                   >
-                    <Send size={18} /> Skicka offertförfrågan
+                    {status === 'loading' ? (
+                      <>
+                        <Loader2 size={18} className="spin" /> Skickar...
+                      </>
+                    ) : (
+                      <>
+                        <Send size={18} /> Skicka offertförfrågan
+                      </>
+                    )}
                   </button>
                 </form>
               </div>
@@ -334,6 +418,8 @@ export default function Quote() {
             grid-template-columns: 1fr !important;
           }
         }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spin { animation: spin 1s linear infinite; }
       `}</style>
     </main>
   );
