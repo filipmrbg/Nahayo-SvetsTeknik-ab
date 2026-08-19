@@ -232,7 +232,7 @@ export default function Quote() {
                       transition: 'transform 0.2s ease, opacity 0.2s ease',
                     }}
                   >
-                    <Send size={18} /> SKICKA OFFERTFÖRFRÅGAN
+                    <Send size={18} /> Skicka offertförfrågan
                   </button>
                 </form>
               </div>
