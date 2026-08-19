@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { Phone, MapPin, Mail } from 'lucide-react';
 import ScrollReveal from '../components/ScrollReveal';
 import FAQAccordion from '../components/FAQAccordion';
 import CTABanner from '../components/CTABanner';
+import QuoteForm from '../components/QuoteForm';
 import { usePageTitle } from '../hooks/usePageTitle';
 
 const container: React.CSSProperties = {
@@ -30,40 +30,11 @@ const faqItems = [
   },
 ];
 
-const inputStyle: React.CSSProperties = {
-  width: '100%',
-  padding: '14px 16px',
-  border: '1px solid #e5e7eb',
-  borderRadius: '12px',
-  background: '#fafafa',
-  fontSize: '0.95rem',
-  fontFamily: 'var(--font-family)',
-  color: 'var(--color-text-dark)',
-  outline: 'none',
-  boxSizing: 'border-box',
-  marginBottom: '16px',
-  transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
-  display: 'block',
-};
-
-function focusInput(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) {
-  e.currentTarget.style.borderColor = 'var(--color-primary)';
-  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(217,119,6,0.15)';
-}
-function blurInput(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) {
-  e.currentTarget.style.borderColor = '#e5e7eb';
-  e.currentTarget.style.boxShadow = 'none';
-}
-
 export default function Contact() {
   usePageTitle(
     'Kontakta Oss | Nahayo SvetsTeknik AB',
     'Hör av dig till Nahayo SvetsTeknik AB i Gällivare för frågor, offert och rådgivning gällande svetsning och svetsteknik.'
   );
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [message, setMessage] = useState('');
 
   return (
     <main style={{ fontFamily: 'var(--font-family)' }}>
@@ -212,92 +183,7 @@ export default function Contact() {
 
             {/* Right: form */}
             <ScrollReveal animation="fade-left" duration={0.8} delay={100}>
-              <h2 style={{
-                color: 'var(--color-text-dark)',
-                fontWeight: 800,
-                fontSize: 'clamp(1.6rem, 2.5vw, 2rem)',
-                margin: '0 0 24px 0',
-                lineHeight: 1.2,
-              }}>
-                Skicka oss ett meddelande
-              </h2>
-              <div style={{
-                background: 'var(--color-white)',
-                padding: '40px',
-                borderRadius: 'var(--border-radius-lg)',
-                boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
-              }}>
-                <form onSubmit={e => e.preventDefault()}>
-                  <input
-                    type="text"
-                    placeholder="Ditt namn *"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                    style={inputStyle}
-                    onFocus={focusInput}
-                    onBlur={blurInput}
-                    required
-                  />
-                  <input
-                    type="email"
-                    placeholder="Din e-postadress *"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    style={inputStyle}
-                    onFocus={focusInput}
-                    onBlur={blurInput}
-                    required
-                  />
-                  <input
-                    type="tel"
-                    placeholder="Ditt telefonnummer"
-                    value={phone}
-                    onChange={e => setPhone(e.target.value)}
-                    style={inputStyle}
-                    onFocus={focusInput}
-                    onBlur={blurInput}
-                  />
-                  <textarea
-                    placeholder="Beskriv ditt ärende *"
-                    value={message}
-                    onChange={e => setMessage(e.target.value)}
-                    style={{ ...inputStyle, minHeight: '140px', resize: 'vertical', marginBottom: '24px' } as React.CSSProperties}
-                    onFocus={focusInput}
-                    onBlur={blurInput}
-                    required
-                  />
-                  <button
-                    type="submit"
-                    style={{
-                      width: '100%',
-                      padding: '14px',
-                      background: 'var(--color-primary)',
-                      color: 'var(--color-dark)',
-                      fontWeight: 600,
-                      fontFamily: 'var(--font-family)',
-                      fontSize: '0.95rem',
-                      border: 'none',
-                      borderRadius: 'var(--border-radius-pill)',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease',
-                    }}
-                    onMouseEnter={e => {
-                      const el = e.currentTarget as HTMLElement;
-                      el.style.background = 'var(--color-primary-hover)';
-                      el.style.transform = 'translateY(-2px)';
-                      el.style.boxShadow = '0 8px 24px rgba(217,119,6,0.35)';
-                    }}
-                    onMouseLeave={e => {
-                      const el = e.currentTarget as HTMLElement;
-                      el.style.background = 'var(--color-primary)';
-                      el.style.transform = 'translateY(0)';
-                      el.style.boxShadow = 'none';
-                    }}
-                  >
-                    Skicka meddelande
-                  </button>
-                </form>
-              </div>
+              <QuoteForm />
             </ScrollReveal>
           </div>
         </div>
@@ -311,7 +197,7 @@ export default function Contact() {
             items={faqItems}
             title="Vanliga frågor"
             subtitle="Svar på det vi ofta får höra. Hittar du inte svaret – ring oss bara!"
-            buttonText="Skicka meddelande"
+            buttonText="Begär offert"
             buttonLink="/kontakt"
           />
         </div>

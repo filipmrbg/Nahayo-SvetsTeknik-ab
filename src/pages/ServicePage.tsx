@@ -13,7 +13,7 @@ const container: CSSProperties = {
   padding: '0 clamp(20px, 5vw, 40px)',
 };
 
-function QuoteForm({ serviceTitle }: { serviceTitle: string }) {
+function ServiceQuoteWidget({ serviceTitle }: { serviceTitle: string }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -386,7 +386,7 @@ export default function ServicePage() {
             {/* Sticky Sidebar */}
             <div className="service-sidebar" style={{ position: 'sticky', top: '120px' }}>
               <ScrollReveal animation="fade-right">
-                <QuoteForm serviceTitle={service.title} />
+                <ServiceQuoteWidget serviceTitle={service.title} />
               </ScrollReveal>
             </div>
 
