@@ -198,7 +198,7 @@ export default function Contact() {
             title="Vanliga frågor"
             subtitle="Svar på det vi ofta får höra. Hittar du inte svaret – ring oss bara!"
             buttonText="Begär offert"
-            buttonLink="/kontakt"
+            buttonLink="/offert"
           />
         </div>
       </section>

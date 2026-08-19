@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
 interface QuoteFormProps {
   title?: string;
@@ -7,6 +7,13 @@ interface QuoteFormProps {
   className?: string;
   style?: React.CSSProperties;
 }
+
+const serviceLabels: Record<string, string> = {
+  'faltservice-akutinsatser': 'Fältservice & Akutinsatser',
+  'maskinreparation-service': 'Maskinreparation & Underhåll',
+  'svetsning-svetsteknik': 'Svetsning & Licenssvetsning',
+  annat: 'Annat uppdrag',
+};
 
 const inputStyle: React.CSSProperties = {
   width: '100%',
@@ -53,12 +60,53 @@ export default function QuoteForm({
   const [phone, setPhone] = useState('');
   const [service, setService] = useState(defaultService);
   const [message, setMessage] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setSubmitted(true);
-  };
+    setStatus('loading');
+    setErrorMsg('');
+
+    try {
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+      if (supabaseUrl && supabaseAnonKey) {
+        const apiUrl = `${supabaseUrl}/functions/v1/send-contact-email`;
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${supabaseAnonKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            phone,
+            service: serviceLabels[service] || (service ? service : 'Ej angivet'),
+            message,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || data.error) {
+          throw new Error(data.error || 'Något gick fel vid skickandet.');
+        }
+      }
+
+      setStatus('success');
+      setName('');
+      setEmail('');
+      setPhone('');
+      setService('');
+      setMessage('');
+    } catch (err) {
+      setStatus('error');
+      setErrorMsg(err instanceof Error ? err.message : 'Ett oväntat fel uppstod.');
+    }
+  }
 
   return (
     <div
@@ -83,7 +131,7 @@ export default function QuoteForm({
         {title}
       </h2>
 
-      {submitted ? (
+      {status === 'success' ? (
         <div
           style={{
             textAlign: 'center',
@@ -117,10 +165,11 @@ export default function QuoteForm({
           <button
             type="button"
             onClick={() => {
-              setSubmitted(false);
+              setStatus('idle');
               setName('');
               setEmail('');
               setPhone('');
+              setService('');
               setMessage('');
             }}
             style={{
@@ -139,6 +188,26 @@ export default function QuoteForm({
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
+          {status === 'error' && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                padding: '16px',
+                background: 'rgba(239,68,68,0.1)',
+                border: '1px solid rgba(239,68,68,0.3)',
+                borderRadius: '12px',
+                marginBottom: '20px',
+              }}
+            >
+              <AlertCircle size={22} color="#dc2626" style={{ flexShrink: 0 }} />
+              <p style={{ margin: 0, fontSize: '0.9rem', color: '#b91c1c', fontWeight: 600 }}>
+                {errorMsg || 'Något gick fel. Försök igen eller ring oss direkt.'}
+              </p>
+            </div>
+          )}
+
           <label style={labelStyle}>Namn *</label>
           <input
             type="text"
@@ -204,6 +273,7 @@ export default function QuoteForm({
 
           <button
             type="submit"
+            disabled={status === 'loading'}
             style={{
               width: '100%',
               padding: '16px',
@@ -213,7 +283,8 @@ export default function QuoteForm({
               borderRadius: '12px',
               fontWeight: 700,
               fontSize: '1rem',
-              cursor: 'pointer',
+              cursor: status === 'loading' ? 'not-allowed' : 'pointer',
+              opacity: status === 'loading' ? 0.7 : 1,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -221,9 +292,11 @@ export default function QuoteForm({
               transition: 'transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease',
             }}
             onMouseEnter={(e) => {
-              const el = e.currentTarget;
-              el.style.transform = 'translateY(-2px)';
-              el.style.boxShadow = '0 6px 20px rgba(217,119,6,0.3)';
+              if (status !== 'loading') {
+                const el = e.currentTarget;
+                el.style.transform = 'translateY(-2px)';
+                el.style.boxShadow = '0 6px 20px rgba(217,119,6,0.3)';
+              }
             }}
             onMouseLeave={(e) => {
               const el = e.currentTarget;
@@ -231,10 +304,23 @@ export default function QuoteForm({
               el.style.boxShadow = 'none';
             }}
           >
-            <Send size={18} /> Skicka offertförfrågan
+            {status === 'loading' ? (
+              <>
+                <Loader2 size={18} className="spin" /> Skickar...
+              </>
+            ) : (
+              <>
+                <Send size={18} /> Skicka offertförfrågan
+              </>
+            )}
           </button>
         </form>
       )}
+
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spin { animation: spin 1s linear infinite; }
+      `}</style>
     </div>
   );
 }
