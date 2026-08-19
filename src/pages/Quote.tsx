@@ -11,6 +11,13 @@ const container: React.CSSProperties = {
   padding: '0 clamp(20px, 5vw, 40px)',
 };
 
+const serviceLabels: Record<string, string> = {
+  'faltservice-akutinsatser': 'Fältservice & Akutinsatser',
+  'maskinreparation-service': 'Maskinreparation & Underhåll',
+  'svetsning-svetsteknik': 'Svetsning & Licenssvetsning',
+  annat: 'Annat uppdrag',
+};
+
 const faqItems = [
   {
     question: 'Kostar det något att få en offert?',
@@ -73,10 +80,6 @@ export default function Quote() {
     setStatus('loading');
     setErrorMsg('');
 
-    const fullMessage = service
-      ? `Tjänst: ${service}\n\n${message}`
-      : message;
-
     try {
       const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-contact-email`;
       const response = await fetch(apiUrl, {
@@ -85,7 +88,13 @@ export default function Quote() {
           'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, email, phone, message: fullMessage }),
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          service: serviceLabels[service] || 'Ej angivet',
+          message,
+        }),
       });
 
       const data = await response.json();

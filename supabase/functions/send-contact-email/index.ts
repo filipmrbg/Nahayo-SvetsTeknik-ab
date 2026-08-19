@@ -49,6 +49,14 @@ const EMAIL_TEMPLATE = `<!DOCTYPE html>
                   </td>
                 </tr>
 
+                <!-- TJÄNST -->
+                <tr>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
+                    <span style="font-weight: 600; color: #374151; display: block; margin-bottom: 4px;">Tjänst:</span>
+                    <span style="color: #1f2937;">{{TJÄNST}}</span>
+                  </td>
+                </tr>
+
                 <!-- MEDDELANDE -->
                 <tr>
                   <td style="padding: 12px 0;">
@@ -120,6 +128,7 @@ Deno.serve(async (req: Request) => {
     const name = typeof body.name === "string" ? body.name.trim() : "";
     const email = typeof body.email === "string" ? body.email.trim() : "";
     const phone = typeof body.phone === "string" ? body.phone.trim() : "";
+    const service = typeof body.service === "string" ? body.service.trim() : "Ej angivet";
     const message = typeof body.message === "string" ? body.message.trim() : "";
 
     if (!name || !email || !message) {
@@ -144,6 +153,7 @@ Deno.serve(async (req: Request) => {
       .replace(/\{\{NAMN\}\}/g, escapeHtml(name))
       .replace(/\{\{EPOST\}\}/g, escapeHtml(email))
       .replace(/\{\{TELEFON\}\}/g, escapeHtml(phone || "Ej angivet"))
+      .replace(/\{\{TJÄNST\}\}/g, escapeHtml(service || "Ej angivet"))
       .replace(/\{\{MEDDELANDE\}\}/g, escapeHtml(message))
       .replace(/\{\{DATUM_OCH_TID\}\}/g, escapeHtml(dateTimeStr))
       .replace(/\{\{SUBMISSION_ID\}\}/g, escapeHtml(submissionId));
