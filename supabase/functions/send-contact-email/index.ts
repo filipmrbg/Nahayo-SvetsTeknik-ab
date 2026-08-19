@@ -168,7 +168,7 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    const subject = `"Ny kontaktförfrågan" från ${name}`;
+    const subject = `Ny kontaktförfrågan från ${name}`;
 
     const resendResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
