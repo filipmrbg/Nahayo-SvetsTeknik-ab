@@ -159,7 +159,7 @@ Deno.serve(async (req: Request) => {
       .replace(/\{\{SUBMISSION_ID\}\}/g, escapeHtml(submissionId));
 
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
-    const contactEmail = "info@nahyosvetsteknik.se";
+    const contactEmail = "info@nahayosvetsteknik.se";
 
     if (!resendApiKey) {
       return new Response(
