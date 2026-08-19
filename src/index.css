@@ -158,7 +158,26 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Reviews Grid Responsive Layout */
+/* Company References Grid Responsive Layout */
+.company-ref-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1080px) {
+  .company-ref-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .company-ref-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Reviews Grid Responsive Layout (Legacy Support) */
 .reviews-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  Star,
   Phone,
   CheckCircle2,
   Wrench,
@@ -10,7 +9,7 @@ import { FieldServiceIcon, MachineRepairIcon, WeldingIcon } from '../components/
 import ScrollReveal from '../components/ScrollReveal';
 import Button from '../components/Button';
 import CTABanner from '../components/CTABanner';
-import ReviewCard from '../components/ReviewCard';
+import CompanyReferences from '../components/CompanyReferences';
 import SocialBanner from '../components/SocialBanner';
 import CallModal from '../components/CallModal';
 import { usePageTitle } from '../hooks/usePageTitle';
@@ -861,107 +860,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── SECTION 8: KUNDRECENSIONER ──────────────────────────── */}
-      <section style={{ background: 'var(--color-light)', padding: 'clamp(60px, 8vw, 100px) 0' }}>
-        <div style={container}>
-          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-            <ScrollReveal animation="fade-up">
-              <p style={{
-                color: 'var(--color-primary)',
-                fontSize: '0.8rem',
-                fontWeight: 700,
-                letterSpacing: '2px',
-                textTransform: 'uppercase',
-                margin: '0 0 12px 0',
-              }}>
-                Kundrecensioner
-              </p>
-            </ScrollReveal>
-            <ScrollReveal animation="blur-in" delay={50}>
-              <h2 style={{
-                color: 'var(--color-text-dark)',
-                fontWeight: 800,
-                fontSize: 'clamp(1.8rem, 3vw, 2.4rem)',
-                margin: '0 0 12px 0',
-                lineHeight: 1.2,
-              }}>
-                Vad säger våra kunder?
-              </h2>
-            </ScrollReveal>
-            <ScrollReveal animation="scale-x-center" delay={200} duration={0.6}>
-              <span style={{ display: 'block', width: '60px', height: '3px', background: 'var(--color-primary)', borderRadius: '2px', margin: '0 auto 24px auto' }} />
-            </ScrollReveal>
-
-            {/* Simple Google Rating Summary */}
-            <ScrollReveal animation="fade-up" delay={100}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                margin: '0 auto 32px auto',
-                fontSize: '0.9rem',
-                color: '#4b5563',
-                fontWeight: 500,
-                flexWrap: 'wrap',
-              }}>
-                <svg viewBox="0 0 24 24" width="16" height="16" style={{ marginRight: '4px', flexShrink: 0 }}>
-                  <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v3.92h6.69a5.74 5.74 0 0 1-2.49 3.77v3.13h4.01c2.34-2.16 3.69-5.32 3.69-8.75z" />
-                  <path fill="#34A853" d="M12 24c3.24 0 5.97-1.08 7.96-2.91l-4.01-3.13c-1.11.75-2.53 1.19-3.95 1.19-3.04 0-5.61-2.05-6.53-4.82H1.31v3.23A12 12 0 0 0 12 24z" />
-                  <path fill="#FBBC05" d="M5.47 14.33A7.16 7.16 0 0 1 5 12c0-.8.14-1.58.39-2.33V6.44H1.31A11.96 11.96 0 0 0 0 12c0 2.05.52 4 1.31 5.67l4.16-3.34z" />
-                  <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.22 0 12 0A12 12 0 0 0 1.31 6.44l4.16 3.23a7.18 7.18 0 0 1 6.53-4.92z" />
-                </svg>
-                <span style={{ fontWeight: 700, color: '#111827' }}>4.9 / 5</span>
-                <div style={{ display: 'flex', gap: '1px' }}>
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} size={14} fill="#FBBC05" color="#FBBC05" />
-                  ))}
-                </div>
-                <span>baserat på 48 Google-omdömen</span>
-              </div>
-            </ScrollReveal>
-          </div>
-
-          <div className="reviews-grid">
-            {[
-              {
-                name: 'Johan Kvist',
-                location: 'Gällivare',
-                text: 'Utmärkt utfört arbete och fantastisk precision. Montörerna höll tidsplanen och kommunikationen var i absolut toppklass från start till mål. Kan varmt rekommenderas!',
-                stars: 5,
-                date: 'för 2 veckor sedan',
-                authorSub: 'Lokal guide • 8 omdömen',
-                avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120&h=120'
-              },
-              {
-                name: 'Karin Wallin',
-                location: 'Kiruna',
-                text: 'Vi anlitade teamet för ett mer komplext specialistarbete. Mycket kunniga yrkesmän som löste alla utmaningar på ett supersnyggt sätt.',
-                stars: 5,
-                date: 'för en månad sedan',
-                authorSub: '5 omdömen',
-                avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=120&h=120'
-              },
-              {
-                name: 'Anders Gustavsson',
-                location: 'Malmfälten',
-                text: 'Proffsigt utförd installation. Tydlig offert utan konstigheter och arbetet genomfördes med högsta noggrannhet. Kommer definitivt anlita dem igen.',
-                stars: 5,
-                date: 'för 2 månader sedan',
-                authorSub: 'Lokal guide • 14 omdömen',
-                avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120&h=120'
-              },
-            ].map((review, i) => {
-              const delay = i * 150;
-              return (
-                <ScrollReveal key={i} animation="fade-up" delay={delay}>
-                  <ReviewCard review={review} />
-                </ScrollReveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* ── SECTION 8: REFERENSER & SAMARBETSPARTNERS ─────────── */}
+      <CompanyReferences />
 
       {/* ── SOCIAL MEDIA BANNER ─────────────────────────────────── */}
       <SocialBanner />
