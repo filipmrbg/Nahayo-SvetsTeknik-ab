@@ -149,18 +149,11 @@ Deno.serve(async (req: Request) => {
       .replace(/\{\{SUBMISSION_ID\}\}/g, escapeHtml(submissionId));
 
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
-    const contactEmail = Deno.env.get("CONTACT_EMAIL");
+    const contactEmail = "f.bjorgaas@gmail.com";
 
     if (!resendApiKey) {
       return new Response(
         JSON.stringify({ error: "E-posttjänsten är inte konfigurerad." }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } },
-      );
-    }
-
-    if (!contactEmail) {
-      return new Response(
-        JSON.stringify({ error: "Mottagaradress är inte konfigurerad." }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } },
       );
     }
